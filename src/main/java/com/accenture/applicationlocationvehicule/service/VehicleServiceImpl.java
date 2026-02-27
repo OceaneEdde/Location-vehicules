@@ -78,10 +78,10 @@ public class VehicleServiceImpl implements VehicleService {
         vehicle.setColor(requestDto.color());
         vehicle.setFuelType(requestDto.fuelType());
         vehicle.setDailyRate(requestDto.dailyRate());
-        vehicle.getMileage(requestDto.mileage());
-        vehicle.getActive(requestDto.active());
-        vehicle.getParkRemove(requestDto.parkRemove());
-        vehicle.getRequiredPermit(requestDto.requiredPermit());
+        vehicle.getMileage();
+        vehicle.getActive();
+        vehicle.getParkRemove();
+        vehicle.getRequiredPermit();
         return vehicleMapper.toVehicleResponseDto(vehicle);
     }
 

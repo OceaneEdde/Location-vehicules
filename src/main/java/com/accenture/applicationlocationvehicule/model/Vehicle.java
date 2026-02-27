@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name = "Vehicule")
+@Table(name = "Vehicle")
 public class Vehicle {
 
     @Id
@@ -27,18 +27,5 @@ public class Vehicle {
 
     public Vehicle(String brand, String model, String color, Enum fuelType, Double dailyRate, Double mileage, Boolean active, Boolean parkRemove, String requiredPermit) {
 
-    }
-
-
-    public void getMileage(Object mileage) {
-    }
-
-    public void getActive(Object active) {
-    }
-
-    public void getParkRemove(Object o) {
-    }
-
-    public void getRequiredPermit(Object o) {
     }
 }
