@@ -6,7 +6,7 @@ import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.NotNull;
 
 
-public record VehicleRequestDto(
+public record CarRequestDto(
 
     @NotBlank(message = "vehicle.brand.null")
     String brand,
