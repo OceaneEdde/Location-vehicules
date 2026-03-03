@@ -1,6 +1,7 @@
 package com.accenture.applicationlocationvehicule.controller.advice;
 
 import com.accenture.applicationlocationvehicule.exception.CarException;
+import com.accenture.applicationlocationvehicule.exception.MotorCycleException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -22,8 +23,8 @@ public class MotorCycleControllerAdvice {
         this.messageSource = messageSource;
     }
 
-    @ExceptionHandler(CarException.class)
-    public ResponseEntity<ErrorDto> businessException(CarException e) {
+    @ExceptionHandler(MotorCycleException.class)
+    public ResponseEntity<ErrorDto> businessException(MotorCycleException e) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
                 new ErrorDto(
                         java.time.LocalDateTime.now(),

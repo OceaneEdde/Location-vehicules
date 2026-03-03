@@ -1,18 +1,17 @@
 package com.accenture.applicationlocationvehicule.model;
 
-import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.accenture.applicationlocationvehicule.model.enums.FuelType;
+import com.accenture.applicationlocationvehicule.model.enums.Licences;
+import com.accenture.applicationlocationvehicule.model.enums.Transmission;
+import com.accenture.applicationlocationvehicule.model.enums.Types;
+import jakarta.persistence.*;
+import lombok.*;
 
-@Entity
-@DiscriminatorValue("CAR")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
 public class Car extends Vehicle {
 
     @Enumerated(EnumType.STRING)
@@ -21,28 +20,31 @@ public class Car extends Vehicle {
     private int nbPlaces;
     private int nbDoors;
     private Boolean conditioningAir;
-    private String typeCar;
+    @Enumerated(EnumType.STRING)
+    private Transmission transmission;
+    @Enumerated(EnumType.STRING)
+    private Types types;
 
-    public Car(String brand,
-               String model,
-               String color,
-               FuelType fuelType,
-               Double dailyRate,
-               Double mileage,
-               Boolean active,
-               Boolean parkRemove,
-               String requiredPermit,
-               int nbDoors,
-               int nbPlaces,
-               Boolean conditioningAir,
-               String typeCar) {
-
-        super(brand, model, color, fuelType, dailyRate, mileage, active, parkRemove, requiredPermit);
-
+    public Car(String brand, String model, String color, Double dailyRate, Double mileage, Boolean active, Boolean parkRemove, Licences licences, FuelType fuelType, int nbPlaces, int nbDoors, Boolean conditioningAir, Transmission transmission, Types types) {
+        super(brand, model, color, dailyRate, mileage, active, parkRemove, licences);
         this.fuelType = fuelType;
-        this.nbDoors = nbDoors;
         this.nbPlaces = nbPlaces;
+        this.nbDoors = nbDoors;
         this.conditioningAir = conditioningAir;
-        this.typeCar = typeCar;
+        this.transmission = transmission;
+        this.types = types;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("Car{");
+        sb.append(", fuelType=").append(fuelType);
+        sb.append(", nbPlaces=").append(nbPlaces);
+        sb.append(", nbDoors=").append(nbDoors);
+        sb.append(", conditioningAir=").append(conditioningAir);
+        sb.append(", transmission='").append(transmission).append('\'');
+        sb.append(", types='").append(types).append('\'');
+        sb.append('}');
+        return sb.toString();
     }
 }

@@ -9,9 +9,8 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface MotorCycleMapper {
 
-        @Mapping(target = "id", ignore = true)
-        MotorCycle toMotorCycle(MotorCycleRequestDto dto);
-
-        MotorCycleResponseDto toMotorCycleResponseDto(MotorCycle motorCycle);
+    @Mapping(target = "id", ignore = true)
+    MotorCycle toMotorCycle(MotorCycleRequestDto dto);
+    MotorCycleResponseDto toMotorCycleResponseDto(MotorCycle motorCycle);
 }
 

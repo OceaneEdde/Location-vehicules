@@ -1,6 +1,6 @@
 package com.accenture.applicationlocationvehicule.service;
 
-import com.accenture.applicationlocationvehicule.service.dto.CarResponseDto;
+
 import com.accenture.applicationlocationvehicule.service.dto.MotorCycleRequestDto;
 import com.accenture.applicationlocationvehicule.service.dto.MotorCycleResponseDto;
 
@@ -12,12 +12,12 @@ public interface MotorCycleService {
 
     List<MotorCycleResponseDto> findAllMotorCycles();
 
-    MotorCycleResponseDto findMotorCycleById(int id);
+    MotorCycleResponseDto findMotorCycleById(int idMotorCycle);
 
-    void deleteMotorCycle(int id);
+    void deleteMotorCycle(int idMotorCycle);
 
-    MotorCycleResponseDto updateMotorCycle(int id, MotorCycleRequestDto dto);
+    MotorCycleResponseDto updateMotorCycle(int idMotorCycle, MotorCycleRequestDto dto);
 
-    MotorCycleResponseDto updateMotorCyclePartially(int id, MotorCycleRequestDto dto);
+    MotorCycleResponseDto updateMotorCyclePartially(int idMotorCycle, MotorCycleRequestDto dto);
 
 }

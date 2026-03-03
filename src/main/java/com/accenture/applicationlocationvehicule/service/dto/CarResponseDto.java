@@ -1,4 +1,17 @@
 package com.accenture.applicationlocationvehicule.service.dto;
 
-public record CarResponseDto(int id, String brand, String model, String color, Enum fuelType, Double dailyRate, Double mileage, Boolean active, Boolean parkRemove, String requiredPermit ) {
-}
+import com.accenture.applicationlocationvehicule.model.enums.FuelType;
+
+public record CarResponseDto(
+        int id,
+        String brand,
+        String model,
+        String color,
+        FuelType fuelType,
+        Double dailyRate,
+        Double mileage,
+        Boolean active,
+        Boolean parkRemove,
+        String requiredPermit
+) {}
+

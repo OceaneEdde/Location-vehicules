@@ -17,6 +17,6 @@ public interface CarService {
 
     CarResponseDto updateCar(int id, CarRequestDto dto);
 
-    CarResponseDto updateCarPartially(int idVehicle, CarRequestDto requestDto);
+    CarResponseDto updateCarPartially(int idCar, CarRequestDto requestDto);
 }
 

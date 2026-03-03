@@ -68,9 +68,15 @@ public class MotorCycleServiceImpl implements MotorCycleService {
         motorCycle.setMileage(dto.mileage());
         motorCycle.setActive(dto.active());
         motorCycle.setParkRemove(dto.parkRemove());
-        motorCycle.setRequiredPermit(dto.requiredPermit());
+        motorCycle.setLicences(dto.licences());
         motorCycle.setCylindree(dto.cylindree());
-        motorCycle.setTypeMoto(dto.typeMoto());
+        motorCycle.setTypes(dto.types());
+        motorCycle.setNbCylindree(dto.nbCylindree());
+        motorCycle.setWeight(dto.weight());
+        motorCycle.setPowerKw(dto.powerKw());
+        motorCycle.setSaddleHeight(dto.saddleHeight());
+        motorCycle.setTransmission(dto.transmission());
+
 
         return motorCycleMapper.toMotorCycleResponseDto(motorCycle);
     }
@@ -104,12 +110,30 @@ public class MotorCycleServiceImpl implements MotorCycleService {
         if (dto.parkRemove() != null)
             motorCycle.setParkRemove(dto.parkRemove());
 
-        if (dto.requiredPermit() != null && !dto.requiredPermit().isBlank())
-            motorCycle.setRequiredPermit(dto.requiredPermit());
-
+        if (dto.licences() != null )
+            motorCycle.setLicences(dto.licences());
 
         if (dto.cylindree() != null)
             motorCycle.setCylindree(dto.cylindree());
+
+        if (dto.nbCylindree() != null && dto.nbCylindree() > 0)
+            motorCycle.setNbCylindree(dto.nbCylindree());
+
+        if (dto.weight() != null && dto.weight() > 0)
+            motorCycle.setWeight(dto.weight());
+
+        if (dto.powerKw() != null && dto.powerKw() > 0)
+            motorCycle.setPowerKw(dto.powerKw());
+
+        if (dto.saddleHeight() != null && dto.saddleHeight() > 0)
+            motorCycle.setSaddleHeight(dto.saddleHeight());
+
+        if (dto.transmission() != null)
+            motorCycle.setTransmission(dto.transmission());
+
+        if (dto.types() != null)
+            motorCycle.setTypes(dto.types());
+
 
         return motorCycleMapper.toMotorCycleResponseDto(motorCycle);
     }
@@ -146,7 +170,29 @@ public class MotorCycleServiceImpl implements MotorCycleService {
         if (dto.parkRemove() == null)
             throw new MotorCycleException(messages.getMessage("motorcycle.parkremove.null"));
 
-        if (dto.requiredPermit() == null || dto.requiredPermit().isBlank())
-            throw new MotorCycleException(messages.getMessage("motorcycle.requiredpermit.null"));
+        if (dto.licences() == null)
+            throw new MotorCycleException(messages.getMessage("motorcycle.licences.null"));
+
+        if (dto.nbCylindree() == null || dto.nbCylindree() <= 0)
+            throw new MotorCycleException(messages.getMessage("motorcycle.nbcylindree.invalid"));
+
+        if (dto.cylindree() == null || dto.cylindree() <= 0)
+            throw new MotorCycleException(messages.getMessage("motorcycle.cylindree.invalid"));
+
+        if (dto.weight() == null || dto.weight() <= 0)
+            throw new MotorCycleException(messages.getMessage("motorcycle.weight.invalid"));
+
+        if (dto.powerKw() == null || dto.powerKw() <= 0)
+            throw new MotorCycleException(messages.getMessage("motorcycle.powerkw.invalid"));
+
+        if (dto.saddleHeight() == null || dto.saddleHeight() <= 0)
+            throw new MotorCycleException(messages.getMessage("motorcycle.saddleheight.invalid"));
+
+        if (dto.transmission() == null)
+            throw new MotorCycleException(messages.getMessage("motorcycle.transmission.null"));
+
+        if (dto.types() == null)
+            throw new MotorCycleException(messages.getMessage("motorcycle.types.null"));
+
     }
 }

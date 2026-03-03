@@ -1,6 +1,9 @@
 package com.accenture.applicationlocationvehicule.service.dto;
 
-import com.accenture.applicationlocationvehicule.model.FuelType;
+import com.accenture.applicationlocationvehicule.model.enums.FuelType;
+import com.accenture.applicationlocationvehicule.model.enums.Licences;
+import com.accenture.applicationlocationvehicule.model.enums.Transmission;
+import com.accenture.applicationlocationvehicule.model.enums.Types;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -16,31 +19,41 @@ public record MotorCycleRequestDto(
         @NotBlank(message = "motorcycle.color.null")
         String color,
 
-        @NotNull(message = "motorcycle.fueltype.null")
+        @NotNull(message = "motorcycle.fuelType.null")
         FuelType fuelType,
 
-        @NotNull(message = "motorcycle.dailyrate.null")
-        @Positive(message = "motorcycle.dailyrate.min")
+        @Positive(message = "motorcycle.dailyRate.invalid")
         Double dailyRate,
 
-        @NotNull(message = "motorcycle.mileage.null")
-        @Positive(message = "motorcycle.mileage.min")
+        @Positive(message = "motorcycle.mileage.invalid")
         Double mileage,
 
         @NotNull(message = "motorcycle.active.null")
         Boolean active,
 
-        @NotNull(message = "motorcycle.parkremove.null")
+        @NotNull(message = "motorcycle.parkRemove.null")
         Boolean parkRemove,
 
-        @NotBlank(message = "motorcycle.requiredpermit.null")
-        String requiredPermit,
+        Licences licences,
 
-        @NotNull(message = "motorcycle.cylindree.null")
+        @Positive(message = "motorcycle.nbCylindree.invalid")
+        Integer nbCylindree,
+
+        @Positive(message = "motorcycle.cylindree.invalid")
         Integer cylindree,
 
-        @NotBlank(message = "motorcycle.typemoto.null")
-        String typeMoto
-) {
+        @Positive(message = "motorcycle.weight.invalid")
+        Double weight,
 
-}
+        @Positive(message = "motorcycle.powerKw.invalid")
+        Double powerKw,
+
+        @Positive(message = "motorcycle.saddleHeight.invalid")
+        Double saddleHeight,
+
+        @NotBlank(message = "motorcycle.transmission.null")
+        Transmission transmission,
+
+        @NotBlank(message = "motorcycle.types.null")
+        Types types
+) {}

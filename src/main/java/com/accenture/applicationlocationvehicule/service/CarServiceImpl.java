@@ -3,7 +3,6 @@ package com.accenture.applicationlocationvehicule.service;
 import com.accenture.applicationlocationvehicule.exception.CarException;
 import com.accenture.applicationlocationvehicule.mapper.CarMapper;
 import com.accenture.applicationlocationvehicule.model.Car;
-import com.accenture.applicationlocationvehicule.model.FuelType;
 import com.accenture.applicationlocationvehicule.repository.CarDao;
 import com.accenture.applicationlocationvehicule.service.dto.CarRequestDto;
 import com.accenture.applicationlocationvehicule.service.dto.CarResponseDto;
@@ -64,12 +63,18 @@ public class CarServiceImpl implements CarService {
         car.setBrand(dto.brand());
         car.setModel(dto.model());
         car.setColor(dto.color());
-        car.setFuelType((FuelType) dto.fuelType());
+        car.setFuelType(dto.fuelType());
         car.setDailyRate(dto.dailyRate());
         car.setMileage(dto.mileage());
         car.setActive(dto.active());
         car.setParkRemove(dto.parkRemove());
-        car.setRequiredPermit(dto.requiredPermit());
+        car.setLicences(dto.licences());
+
+        car.setNbPlaces(dto.nbPlaces());
+        car.setNbDoors(dto.nbDoors());
+        car.setConditioningAir(dto.conditioningAir());
+        car.setTransmission(dto.transmission());
+        car.setTypes(dto.types());
 
         return carMapper.toCarResponseDto(car);
     }
@@ -89,7 +94,7 @@ public class CarServiceImpl implements CarService {
             car.setColor(dto.color());
 
         if (dto.fuelType() != null)
-            car.setFuelType((FuelType) dto.fuelType());
+            car.setFuelType(dto.fuelType());
 
         if (dto.dailyRate() != null && dto.dailyRate() > 0)
             car.setDailyRate(dto.dailyRate());
@@ -103,15 +108,30 @@ public class CarServiceImpl implements CarService {
         if (dto.parkRemove() != null)
             car.setParkRemove(dto.parkRemove());
 
-        if (dto.requiredPermit() != null && !dto.requiredPermit().isBlank())
-            car.setRequiredPermit(dto.requiredPermit());
+        if (dto.licences() != null)
+            car.setLicences(dto.licences());
+
+        if (dto.nbPlaces() != null && dto.nbPlaces() > 0)
+            car.setNbPlaces(dto.nbPlaces());
+
+        if (dto.nbDoors() != null && dto.nbDoors() > 0)
+            car.setNbDoors(dto.nbDoors());
+
+        if (dto.conditioningAir() != null)
+            car.setConditioningAir(dto.conditioningAir());
+
+        if (dto.transmission() != null)
+            car.setTransmission(dto.transmission());
+
+        if (dto.types() != null)
+            car.setTypes(dto.types());
 
         return carMapper.toCarResponseDto(car);
     }
 
     private void auditor(CarRequestDto dto) {
         if (dto == null)
-            throw new CarException(messages.getMessage("motorCycle.null"));
+            throw new CarException(messages.getMessage("car.null"));
 
         if (dto.brand() == null || dto.brand().isBlank())
             throw new CarException(messages.getMessage("car.brand.null"));
@@ -141,7 +161,22 @@ public class CarServiceImpl implements CarService {
         if (dto.parkRemove() == null)
             throw new CarException(messages.getMessage("car.parkremove.null"));
 
-        if (dto.requiredPermit() == null || dto.requiredPermit().isBlank())
-            throw new CarException(messages.getMessage("car.requiredpermit.null"));
+        if (dto.licences() == null )
+            throw new CarException(messages.getMessage("car.licences.null"));
+
+        if (dto.nbPlaces() == null || dto.nbPlaces() <= 0)
+            throw new CarException(messages.getMessage("car.nbplaces.invalid"));
+
+        if (dto.nbDoors() == null || dto.nbDoors() <= 0)
+            throw new CarException(messages.getMessage("car.nbdoors.invalid"));
+
+        if (dto.conditioningAir() == null)
+            throw new CarException(messages.getMessage("car.conditioningair.null"));
+
+        if (dto.transmission() == null)
+            throw new CarException(messages.getMessage("car.transmission.null"));
+
+        if (dto.types() == null)
+            throw new CarException(messages.getMessage("car.types.null"));
     }
 }

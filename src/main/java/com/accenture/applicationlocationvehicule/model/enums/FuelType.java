@@ -1,4 +1,5 @@
-package com.accenture.applicationlocationvehicule.model;
+package com.accenture.applicationlocationvehicule.model.enums;
+
 
 public enum FuelType {
     DIESEL,
