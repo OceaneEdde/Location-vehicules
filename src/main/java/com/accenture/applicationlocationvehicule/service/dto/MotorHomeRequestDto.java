@@ -1,69 +1,70 @@
 package com.accenture.applicationlocationvehicule.service.dto;
 
 import com.accenture.applicationlocationvehicule.model.enums.FuelType;
-import com.accenture.applicationlocationvehicule.model.enums.Licences;
+import com.accenture.applicationlocationvehicule.model.enums.Licenses;
 import com.accenture.applicationlocationvehicule.model.enums.Transmission;
 import com.accenture.applicationlocationvehicule.model.enums.Types;
+import com.accenture.applicationlocationvehicule.utils.Messages;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
 public record MotorHomeRequestDto(
 
-        @NotBlank(message = "motorhome.brand.null")
+        @NotBlank(message = Messages.MESSAGES_ERROR_MOTORHOME_BRAND)
         String brand,
 
-        @NotBlank(message = "motorhome.model.null")
+        @NotBlank(message = Messages.MESSAGES_ERROR_MOTORHOME_MODEL)
         String model,
 
-        @NotBlank(message = "motorhome.color.null")
+        @NotBlank(message = Messages.MESSAGES_ERROR_MOTORHOME_COLOR)
         String color,
 
-        @NotNull(message = "motorhome.fuelType.null")
+        @NotNull(message = Messages.MESSAGES_ERROR_MOTORHOME_FUELTYPE)
         FuelType fuelType,
 
-        @Positive(message = "motorhome.dailyRate.invalid")
+        @Positive(message = Messages.MESSAGES_ERROR_MOTORHOME_DAYLIRATE_NULL)
         Double dailyRate,
 
-        @Positive(message = "motorhome.mileage.invalid")
+        @Positive(message = Messages.MESSAGES_ERROR_MOTORHOME_MILEAGE_NULL)
         Double mileage,
 
-        @NotNull(message = "motorhome.active.null")
+        @NotNull(message = Messages.MESSAGES_ERROR_MOTORHOME_ACTIVE)
         Boolean active,
 
-        @NotNull(message = "motorhome.parkRemove.null")
+        @NotNull(message = Messages.MESSAGES_ERROR_MOTORHOME_PARKREMOVE)
         Boolean parkRemove,
 
-        Licences licences,
+        Licenses licenses,
 
-        @Positive(message = "motorhome.nbPlaces.invalid")
+        @Positive(message = Messages.MESSAGES_ERROR_MOTORHOME_NBPLACES)
         Integer nbPlaces,
 
-        @Positive(message = "motorhome.ptac.invalid")
+        @Positive(message = Messages.MESSAGES_ERROR_MOTORHOME_PTAC)
         Double ptac,
 
-        @Positive(message = "motorhome.height.invalid")
+        @Positive(message = Messages.MESSAGES_ERROR_MOTORHOME_HEIGHT)
         Double height,
 
-        @NotNull(message = "motorhome.kitchen.null")
+        @NotNull(message = Messages.MESSAGES_ERROR_MOTORHOME_KITCHEN)
         Boolean kitchen,
 
-        @Positive(message = "motorhome.nbBed.invalid")
+        @Positive(message = Messages.MESSAGES_ERROR_MOTORHOME_NBBED)
         Integer nbBed,
 
-        @NotNull(message = "motorhome.bedLinen.null")
+        @NotNull(message = Messages.MESSAGES_ERROR_MOTORHOME_NBLINEN)
         Boolean bedLinen,
 
-        @NotNull(message = "motorhome.fridge.null")
+        @NotNull(message = Messages.MESSAGES_ERROR_MOTORHOME_FRIDGE)
         Boolean fridge,
 
-        @NotNull(message = "motorhome.shower.null")
+        @NotNull(message = Messages.MESSAGES_ERROR_MOTORHOME_SHOWER)
         Boolean shower,
 
-        @NotBlank(message = "motorhome.types.null")
+        @NotBlank(message = Messages.MESSAGES_ERROR_MOTORHOME_TYPES)
         Types types,
 
-        @NotBlank(message = "motorhome.transmission.null")
+        @NotBlank(message = Messages.MESSAGES_ERROR_MOTORHOME_TRANSMISSION)
         Transmission transmission
 
 ) {}

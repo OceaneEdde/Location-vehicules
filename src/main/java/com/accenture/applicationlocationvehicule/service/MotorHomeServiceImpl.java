@@ -7,6 +7,7 @@ import com.accenture.applicationlocationvehicule.model.MotorHome;
 import com.accenture.applicationlocationvehicule.repository.MotorHomeDao;
 import com.accenture.applicationlocationvehicule.service.dto.MotorHomeRequestDto;
 import com.accenture.applicationlocationvehicule.service.dto.MotorHomeResponseDto;
+import com.accenture.applicationlocationvehicule.utils.Messages;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -41,7 +42,7 @@ public class MotorHomeServiceImpl implements MotorHomeService {
     @Override
     public MotorHomeResponseDto findMotorHomeById(int id) {
         MotorHome motorHome = motorHomeDao.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(messages.getMessage("motorHome.id.notfound")));
+                .orElseThrow(() -> new EntityNotFoundException(messages.getMessage(Messages.MESSAGES_ERROR_MOTORHOME_NOTFOUND)));
 
         return motorHomeMapper.toMotorHomeResponseDto(motorHome);
     }
@@ -49,7 +50,7 @@ public class MotorHomeServiceImpl implements MotorHomeService {
     @Override
     public void deleteMotorHome(int id) {
         MotorHome motorHome = motorHomeDao.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(messages.getMessage("motorHome.id.notfound")));
+                .orElseThrow(() -> new EntityNotFoundException(messages.getMessage(Messages.MESSAGES_ERROR_MOTORHOME_NOTFOUND)));
 
         motorHomeDao.delete(motorHome);
     }
@@ -57,10 +58,33 @@ public class MotorHomeServiceImpl implements MotorHomeService {
     @Override
     public MotorHomeResponseDto updateMotorHome(int id, MotorHomeRequestDto dto) {
         MotorHome motorHome = motorHomeDao.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(messages.getMessage("motorHome.id.notfound")));
+                .orElseThrow(() -> new EntityNotFoundException(messages.getMessage(Messages.MESSAGES_ERROR_MOTORHOME_NOTFOUND)));
 
         auditor(dto);
 
+        applyFullUpdate(motorHome, dto);
+
+        motorHomeDao.save(motorHome);
+
+        return motorHomeMapper.toMotorHomeResponseDto(motorHome);
+
+    }
+
+        @Override
+        public MotorHomeResponseDto updateMotorHomePartially(int id, MotorHomeRequestDto dto) {
+            MotorHome motorHome = motorHomeDao.findById(id)
+                    .orElseThrow(() -> new EntityNotFoundException(messages.getMessage(Messages.MESSAGES_ERROR_MOTORHOME_NOTFOUND)));
+
+            applyPartiallyUpdate(motorHome, dto);
+
+            motorHomeDao.save(motorHome);
+
+            return motorHomeMapper.toMotorHomeResponseDto(motorHome);
+
+        }
+
+    //  Sous-méthodes
+    private void applyFullUpdate(MotorHome motorHome, MotorHomeRequestDto dto){
         motorHome.setBrand(dto.brand());
         motorHome.setModel(dto.model());
         motorHome.setColor(dto.color());
@@ -69,7 +93,7 @@ public class MotorHomeServiceImpl implements MotorHomeService {
         motorHome.setMileage(dto.mileage());
         motorHome.setActive(dto.active());
         motorHome.setParkRemove(dto.parkRemove());
-        motorHome.setLicences(dto.licences());
+        motorHome.setLicenses(dto.licenses());
         motorHome.setNbPlaces(dto.nbPlaces());
         motorHome.setPtac(dto.ptac());
         motorHome.setHeight(dto.height());
@@ -80,142 +104,55 @@ public class MotorHomeServiceImpl implements MotorHomeService {
         motorHome.setShower(dto.shower());
         motorHome.setTypes(dto.types());
         motorHome.setTransmission(dto.transmission());
-
-
-        return motorHomeMapper.toMotorHomeResponseDto(motorHome);
     }
 
-    @Override
-    public MotorHomeResponseDto updateMotorHomePartially(int id, MotorHomeRequestDto dto) {
-        MotorHome motorHome = motorHomeDao.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(messages.getMessage("motorHome.id.notfound")));
 
-        if (dto.brand() != null && !dto.brand().isBlank())
-            motorHome.setBrand(dto.brand());
+    private void applyPartiallyUpdate(MotorHome motorHome, MotorHomeRequestDto dto){
+        if (dto.brand() != null && !dto.brand().isBlank()) motorHome.setBrand(dto.brand());
+        if (dto.model() != null && !dto.model().isBlank()) motorHome.setModel(dto.model());
+        if (dto.color() != null && !dto.color().isBlank()) motorHome.setColor(dto.color());
+        if (dto.fuelType() != null) motorHome.setFuelType(dto.fuelType());
+        if (dto.dailyRate() != null && dto.dailyRate() > 0) motorHome.setDailyRate(dto.dailyRate());
+        if (dto.mileage() != null && dto.mileage() >= 0) motorHome.setMileage(dto.mileage());
+        if (dto.active() != null) motorHome.setActive(dto.active());
+        if (dto.parkRemove() != null) motorHome.setParkRemove(dto.parkRemove());
+        if (dto.licenses() != null ) motorHome.setLicenses(dto.licenses());
+        if (dto.nbPlaces() != null && dto.nbPlaces() > 0) motorHome.setNbPlaces(dto.nbPlaces());
+        if (dto.ptac() != null && dto.ptac() > 0) motorHome.setPtac(dto.ptac());
+        if (dto.height() != null && dto.height() > 0) motorHome.setHeight(dto.height());
+        if (dto.kitchen() != null) motorHome.setKitchen(dto.kitchen());
+        if (dto.nbBed() != null && dto.nbBed() > 0) motorHome.setNbBed(dto.nbBed());
+        if (dto.bedLinen() != null) motorHome.setBedLinen(dto.bedLinen());
+        if (dto.fridge() != null) motorHome.setFridge(dto.fridge());
+        if (dto.shower() != null) motorHome.setShower(dto.shower());
+        if (dto.types() != null ) motorHome.setTypes(dto.types());
+        if (dto.transmission() != null) motorHome.setTransmission(dto.transmission());
 
-        if (dto.model() != null && !dto.model().isBlank())
-            motorHome.setModel(dto.model());
-
-        if (dto.color() != null && !dto.color().isBlank())
-            motorHome.setColor(dto.color());
-
-        if (dto.fuelType() != null) {
-            motorHome.setFuelType(dto.fuelType());
-        }
-
-        if (dto.dailyRate() != null && dto.dailyRate() > 0)
-            motorHome.setDailyRate(dto.dailyRate());
-
-        if (dto.mileage() != null && dto.mileage() >= 0)
-            motorHome.setMileage(dto.mileage());
-
-        if (dto.active() != null)
-            motorHome.setActive(dto.active());
-
-        if (dto.parkRemove() != null)
-            motorHome.setParkRemove(dto.parkRemove());
-
-        if (dto.licences() != null )
-            motorHome.setLicences(dto.licences());
-
-        if (dto.nbPlaces() != null && dto.nbPlaces() > 0)
-            motorHome.setNbPlaces(dto.nbPlaces());
-
-        if (dto.ptac() != null && dto.ptac() > 0)
-            motorHome.setPtac(dto.ptac());
-
-        if (dto.height() != null && dto.height() > 0)
-            motorHome.setHeight(dto.height());
-
-        if (dto.kitchen() != null)
-            motorHome.setKitchen(dto.kitchen());
-
-        if (dto.nbBed() != null && dto.nbBed() > 0)
-            motorHome.setNbBed(dto.nbBed());
-
-        if (dto.bedLinen() != null)
-            motorHome.setBedLinen(dto.bedLinen());
-
-        if (dto.fridge() != null)
-            motorHome.setFridge(dto.fridge());
-
-        if (dto.shower() != null)
-            motorHome.setShower(dto.shower());
-
-        if (dto.types() != null )
-            motorHome.setTypes(dto.types());
-
-        if (dto.transmission() != null)
-            motorHome.setTransmission(dto.transmission());
-
-
-        return motorHomeMapper.toMotorHomeResponseDto(motorHome);
     }
 
     private void auditor(MotorHomeRequestDto dto) {
-        if (dto == null)
-            throw new MotorHomeException(messages.getMessage("motorHome.null"));
-
-        if (dto.brand() == null || dto.brand().isBlank())
-            throw new MotorHomeException(messages.getMessage("motorHome.brand.null"));
-
-        if (dto.model() == null || dto.model().isBlank())
-            throw new MotorHomeException(messages.getMessage("motorHome.model.null"));
-
-        if (dto.color() == null || dto.color().isBlank())
-            throw new MotorHomeException(messages.getMessage("motorHome.color.null"));
-
-        if (dto.fuelType() == null)
-            throw new MotorHomeException(messages.getMessage("motorHome.fueltype.null"));
-
-        if (dto.dailyRate() == null)
-            throw new MotorHomeException(messages.getMessage("motorHome.dailyrate.null"));
-        if (dto.dailyRate() <= 0)
-            throw new MotorHomeException(messages.getMessage("motorHome.dailyrate.min"));
-
-        if (dto.mileage() == null)
-            throw new MotorHomeException(messages.getMessage("motorHome.mileage.null"));
-        if (dto.mileage() < 0)
-            throw new MotorHomeException(messages.getMessage("motorHome.mileage.min"));
-
-        if (dto.active() == null)
-            throw new MotorHomeException(messages.getMessage("motorHome.active.null"));
-
-        if (dto.parkRemove() == null)
-            throw new MotorHomeException(messages.getMessage("motorHome.parkremove.null"));
-
-        if (dto.licences() == null)
-            throw new MotorHomeException(messages.getMessage("motorHome.licences.null"));
-
-        if (dto.nbPlaces() == null || dto.nbPlaces() <= 0)
-            throw new MotorHomeException(messages.getMessage("motorHome.nbplaces.invalid"));
-
-        if (dto.ptac() == null || dto.ptac() <= 0)
-            throw new MotorHomeException(messages.getMessage("motorHome.ptac.invalid"));
-
-        if (dto.height() == null || dto.height() <= 0)
-            throw new MotorHomeException(messages.getMessage("motorHome.height.invalid"));
-
-        if (dto.kitchen() == null)
-            throw new MotorHomeException(messages.getMessage("motorHome.kitchen.null"));
-
-        if (dto.nbBed() == null || dto.nbBed() <= 0)
-            throw new MotorHomeException(messages.getMessage("motorHome.nbbed.invalid"));
-
-        if (dto.bedLinen() == null)
-            throw new MotorHomeException(messages.getMessage("motorHome.bedlinen.null"));
-
-        if (dto.fridge() == null)
-            throw new MotorHomeException(messages.getMessage("motorHome.fridge.null"));
-
-        if (dto.shower() == null)
-            throw new MotorHomeException(messages.getMessage("motorHome.shower.null"));
-
-        if (dto.types() == null )
-            throw new MotorHomeException(messages.getMessage("motorHome.types.null"));
-
-        if (dto.transmission() == null)
-            throw new MotorCycleException(messages.getMessage("motorHome.transmission.null"));
+        if (dto == null) throw new MotorHomeException(messages.getMessage(Messages.MESSAGES_ERROR_MOTORHOME_NOTFOUND));
+        if (dto.brand() == null || dto.brand().isBlank()) throw new MotorHomeException(messages.getMessage(Messages.MESSAGES_ERROR_MOTORHOME_BRAND));
+        if (dto.model() == null || dto.model().isBlank()) throw new MotorHomeException(messages.getMessage(Messages.MESSAGES_ERROR_MOTORHOME_MODEL));
+        if (dto.color() == null || dto.color().isBlank()) throw new MotorHomeException(messages.getMessage(Messages.MESSAGES_ERROR_MOTORHOME_COLOR));
+        if (dto.fuelType() == null) throw new MotorHomeException(messages.getMessage(Messages.MESSAGES_ERROR_MOTORHOME_FUELTYPE));
+        if (dto.dailyRate() == null) throw new MotorHomeException(messages.getMessage(Messages.MESSAGES_ERROR_MOTORHOME_DAYLIRATE_NULL));
+        if (dto.dailyRate() <= 0) throw new MotorHomeException(messages.getMessage(Messages.MESSAGES_ERROR_MOTORHOME_DAYLIRATE_MIN));
+        if (dto.mileage() == null) throw new MotorHomeException(messages.getMessage(Messages.MESSAGES_ERROR_MOTORHOME_MILEAGE_NULL));
+        if (dto.mileage() < 0) throw new MotorHomeException(messages.getMessage(Messages.MESSAGES_ERROR_MOTORHOME_MILEAGE_MIN));
+        if (dto.active() == null) throw new MotorHomeException(messages.getMessage(Messages.MESSAGES_ERROR_MOTORHOME_ACTIVE));
+        if (dto.parkRemove() == null) throw new MotorHomeException(messages.getMessage(Messages.MESSAGES_ERROR_MOTORHOME_PARKREMOVE));
+        if (dto.licenses() == null) throw new MotorHomeException(messages.getMessage(Messages.MESSAGES_ERROR_MOTORHOME_LICENSES));
+        if (dto.nbPlaces() == null || dto.nbPlaces() <= 0) throw new MotorHomeException(messages.getMessage(Messages.MESSAGES_ERROR_MOTORHOME_NBPLACES));
+        if (dto.ptac() == null || dto.ptac() <= 0) throw new MotorHomeException(messages.getMessage(Messages.MESSAGES_ERROR_MOTORHOME_PTAC));
+        if (dto.height() == null || dto.height() <= 0) throw new MotorHomeException(messages.getMessage(Messages.MESSAGES_ERROR_MOTORHOME_HEIGHT));
+        if (dto.kitchen() == null) throw new MotorHomeException(messages.getMessage(Messages.MESSAGES_ERROR_MOTORHOME_KITCHEN));
+        if (dto.nbBed() == null || dto.nbBed() <= 0) throw new MotorHomeException(messages.getMessage(Messages.MESSAGES_ERROR_MOTORHOME_NBBED));
+        if (dto.bedLinen() == null) throw new MotorHomeException(messages.getMessage(Messages.MESSAGES_ERROR_MOTORHOME_NBLINEN));
+        if (dto.fridge() == null) throw new MotorHomeException(messages.getMessage(Messages.MESSAGES_ERROR_MOTORHOME_FRIDGE));
+        if (dto.shower() == null) throw new MotorHomeException(messages.getMessage(Messages.MESSAGES_ERROR_MOTORHOME_SHOWER));
+        if (dto.types() == null ) throw new MotorHomeException(messages.getMessage(Messages.MESSAGES_ERROR_MOTORHOME_TYPES));
+        if (dto.transmission() == null) throw new MotorCycleException(messages.getMessage(Messages.MESSAGES_ERROR_MOTORHOME_TRANSMISSION));
 
     }
 }

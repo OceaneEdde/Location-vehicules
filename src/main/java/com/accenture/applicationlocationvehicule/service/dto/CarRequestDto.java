@@ -1,53 +1,54 @@
 package com.accenture.applicationlocationvehicule.service.dto;
 
 import com.accenture.applicationlocationvehicule.model.enums.FuelType;
-import com.accenture.applicationlocationvehicule.model.enums.Licences;
+import com.accenture.applicationlocationvehicule.model.enums.Licenses;
 import com.accenture.applicationlocationvehicule.model.enums.Transmission;
 import com.accenture.applicationlocationvehicule.model.enums.Types;
+import com.accenture.applicationlocationvehicule.utils.Messages;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
 public record CarRequestDto(
 
-        @NotBlank(message = "car.brand.null")
+        @NotBlank(message = Messages.MESSAGES_ERROR_CAR_BRAND)
         String brand,
 
-        @NotBlank(message = "car.model.null")
+        @NotBlank(message = Messages.MESSAGES_ERROR_CAR_MODEL)
         String model,
 
-        @NotBlank(message = "car.color.null")
+        @NotBlank(message = Messages.MESSAGES_ERROR_CAR_COLOR)
         String color,
 
-        @NotNull(message = "car.fuelType.null")
+        @NotNull(message = Messages.MESSAGES_ERROR_CAR_FUELTYPE)
         FuelType fuelType,
 
-        @Positive(message = "car.dailyRate.invalid")
+        @Positive(message = Messages.MESSAGES_ERROR_CAR_DAILYRATE_NULL)
         Double dailyRate,
 
-        @Positive(message = "car.mileage.invalid")
+        @Positive(message = Messages.MESSAGES_ERROR_CAR_MILEAGE_NULL)
         Double mileage,
 
-        @NotNull(message = "car.active.null")
+        @NotNull(message = Messages.MESSAGES_ERROR_CAR_ACTIVE)
         Boolean active,
 
-        @NotNull(message = "car.parkRemove.null")
+        @NotNull(message = Messages.MESSAGES_ERROR_CAR_PARKREMOVE)
         Boolean parkRemove,
 
-        Licences licences,
+        Licenses licenses,
 
-        @Positive(message = "car.nbPlaces.invalid")
+        @Positive(message = Messages.MESSAGES_ERROR_CAR_NBPLACES)
         Integer nbPlaces,
 
-        @Positive(message = "car.nbDoors.invalid")
+        @Positive(message = Messages.MESSAGES_ERROR_CAR_NBDOORS)
         Integer nbDoors,
 
-        @NotNull(message = "car.conditioningAir.null")
+        @NotNull(message = Messages.MESSAGES_ERROR_CAR_CONDITIONINGAIR)
         Boolean conditioningAir,
 
-        @NotBlank(message = "car.transmission.null")
+        @NotBlank(message = Messages.MESSAGES_ERROR_CAR_TRANSMISSION)
         Transmission transmission,
 
-        @NotBlank(message = "car.types.null")
+        @NotBlank(message = Messages.MESSAGES_ERROR_CAR_TYPES)
         Types types
 ) {}

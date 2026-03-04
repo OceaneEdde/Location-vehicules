@@ -1,55 +1,56 @@
 package com.accenture.applicationlocationvehicule.service.dto;
 
-import com.accenture.applicationlocationvehicule.model.enums.Licences;
+import com.accenture.applicationlocationvehicule.model.enums.Licenses;
 import com.accenture.applicationlocationvehicule.model.enums.Types;
+import com.accenture.applicationlocationvehicule.utils.Messages;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
 public record BikeRequestDto(
 
-        @NotBlank(message = "bike.brand.null")
+        @NotBlank(message = Messages.MESSAGES_ERROR_BIKE_BRAND)
         String brand,
 
-        @NotBlank(message = "bike.model.null")
+        @NotBlank(message = Messages.MESSAGES_ERROR_BIKE_MODEL)
         String model,
 
-        @NotBlank(message = "bike.color.null")
+        @NotBlank(message = Messages.MESSAGES_ERROR_BIKE_COLOR)
         String color,
 
-        @Positive(message = "bike.dailyRate.invalid")
+        @Positive(message = Messages.MESSAGES_ERROR_BIKE_DAILYRATE_MIN)
         Double dailyRate,
 
-        @Positive(message = "bike.mileage.invalid")
+        @Positive(message = Messages.MESSAGES_ERROR_BIKE_MILEAGE_MIN)
         Double mileage,
 
-        @NotNull(message = "bike.active.null")
+        @NotNull(message = Messages.MESSAGES_ERROR_BIKE_ACTIVE)
         Boolean active,
 
-        @NotNull(message = "bike.parkRemove.null")
+        @NotNull(message = Messages.MESSAGES_ERROR_BIKE_PARKREMOVE)
         Boolean parkRemove,
 
-        Licences licences,
+        Licenses licenses,
 
-        @Positive(message = "bike.weight.invalid")
+        @Positive(message = Messages.MESSAGES_ERROR_BIKE_WEIGHT)
         Double weight,
 
-        @NotBlank(message = "bike.frameSize.null")
+        @NotBlank(message = Messages.MESSAGES_ERROR_BIKE_FRAMESIZE)
         String frameSize,
 
-        @NotNull(message = "bike.electric.null")
+        @NotNull(message = Messages.MESSAGES_ERROR_BIKE_ELECTRIC)
         Boolean electric,
 
-        @Positive(message = "bike.capacityBattery.invalid")
+        @Positive(message = Messages.MESSAGES_ERROR_BIKE_CAPACITYBATTERY)
         Double capacityBattery,
 
-        @Positive(message = "bike.autonomy.invalid")
+        @Positive(message = Messages.MESSAGES_ERROR_BIKE_AUTONOMY)
         Double autonomy,
 
-        @NotNull(message = "bike.discBrake.null")
+        @NotNull(message = Messages.MESSAGES_ERROR_BIKE_DISCBRAKE)
         Boolean discBrake,
 
-        @NotBlank(message = "bike.types.null")
+        @NotBlank(message = Messages.MESSAGES_ERROR_BIKE_TYPES)
         Types types
 ) {
 

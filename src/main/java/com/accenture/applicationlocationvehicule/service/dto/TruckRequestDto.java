@@ -1,59 +1,60 @@
 package com.accenture.applicationlocationvehicule.service.dto;
 
 import com.accenture.applicationlocationvehicule.model.enums.FuelType;
-import com.accenture.applicationlocationvehicule.model.enums.Licences;
+import com.accenture.applicationlocationvehicule.model.enums.Licenses;
 import com.accenture.applicationlocationvehicule.model.enums.Transmission;
 import com.accenture.applicationlocationvehicule.model.enums.Types;
+import com.accenture.applicationlocationvehicule.utils.Messages;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
 public record TruckRequestDto(
 
-        @NotBlank(message = "truck.brand.null")
+        @NotBlank(message = Messages.MESSAGES_ERROR_TRUCK_BRAND)
         String brand,
 
-        @NotBlank(message = "truck.model.null")
+        @NotBlank(message = Messages.MESSAGES_ERROR_TRUCK_MODEL)
         String model,
 
-        @NotBlank(message = "truck.color.null")
+        @NotBlank(message = Messages.MESSAGES_ERROR_TRUCK_COLOR)
         String color,
 
-        @NotNull(message = "truck.fuelType.null")
+        @NotNull(message = Messages.MESSAGES_ERROR_TRUCK_FUELTYPE)
         FuelType fuelType,
 
-        @Positive(message = "truck.dailyRate.invalid")
+        @Positive(message = Messages.MESSAGES_ERROR_TRUCK_DAILYRATE_NULL)
         Double dailyRate,
 
-        @Positive(message = "truck.mileage.invalid")
+        @Positive(message = Messages.MESSAGES_ERROR_TRUCK_MILEAGE_NULL)
         Double mileage,
 
-        @NotNull(message = "truck.active.null")
+        @NotNull(message = Messages.MESSAGES_ERROR_TRUCK_ACTIVE)
         Boolean active,
 
-        @NotNull(message = "truck.parkRemove.null")
+        @NotNull(message = Messages.MESSAGES_ERROR_TRUCK_PARKREMOVE)
         Boolean parkRemove,
 
-        Licences licences,
+        Licenses licenses,
 
-        @Positive(message = "truck.nbPlaces.invalid")
+        @Positive(message = Messages.MESSAGES_ERROR_TRUCK_NBPLACES)
         Integer nbPlaces,
 
-        @Positive(message = "truck.loadMax.invalid")
+        @Positive(message = Messages.MESSAGES_ERROR_TRUCK_LOADMAX)
         Double loadMax,
 
-        @Positive(message = "truck.capacity.invalid")
+        @Positive(message = Messages.MESSAGES_ERROR_TRUCK_CAPACITY)
         Double capacity,
 
-        @Positive(message = "truck.ptac.invalid")
+        @Positive(message = Messages.MESSAGES_ERROR_TRUCK_PTAC)
         Double ptac,
 
-        @NotBlank(message = "truck.transmission.null")
+        @NotBlank(message = Messages.MESSAGES_ERROR_TRUCK_TRANSMISSION)
         Transmission transmission,
 
-        @NotNull(message = "truck.conditioningAir.null")
+        @NotNull(message = Messages.MESSAGES_ERROR_TRUCK_CONDITIONINGAIR)
         Boolean conditioningAir,
 
-        @NotBlank(message = "truck.types.null")
+        @NotBlank(message = Messages.MESSAGES_ERROR_TRUCK_TYPES)
         Types types
 ) {}

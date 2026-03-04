@@ -1,59 +1,60 @@
 package com.accenture.applicationlocationvehicule.service.dto;
 
 import com.accenture.applicationlocationvehicule.model.enums.FuelType;
-import com.accenture.applicationlocationvehicule.model.enums.Licences;
+import com.accenture.applicationlocationvehicule.model.enums.Licenses;
 import com.accenture.applicationlocationvehicule.model.enums.Transmission;
 import com.accenture.applicationlocationvehicule.model.enums.Types;
+import com.accenture.applicationlocationvehicule.utils.Messages;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
 public record MotorCycleRequestDto(
 
-        @NotBlank(message = "motorcycle.brand.null")
+        @NotBlank(message = Messages.MESSAGES_ERROR_MOTORCYCLE_BRAND)
         String brand,
 
-        @NotBlank(message = "motorcycle.model.null")
+        @NotBlank(message = Messages.MESSAGES_ERROR_MOTORCYCLE_MODEL)
         String model,
 
-        @NotBlank(message = "motorcycle.color.null")
+        @NotBlank(message = Messages.MESSAGES_ERROR_MOTORCYCLE_COLOR)
         String color,
 
-        @NotNull(message = "motorcycle.fuelType.null")
+        @NotNull(message = Messages.MESSAGES_ERROR_MOTORCYCLE_FUELTYPE)
         FuelType fuelType,
 
-        @Positive(message = "motorcycle.dailyRate.invalid")
+        @Positive(message = Messages.MESSAGES_ERROR_MOTORCYCLE_DAILYRATE_NULL)
         Double dailyRate,
 
-        @Positive(message = "motorcycle.mileage.invalid")
+        @Positive(message = Messages.MESSAGES_ERROR_MOTORCYCLE_MILEAGE_NULL)
         Double mileage,
 
-        @NotNull(message = "motorcycle.active.null")
+        @NotNull(message = Messages.MESSAGES_ERROR_MOTORCYCLE_ACTIVE)
         Boolean active,
 
-        @NotNull(message = "motorcycle.parkRemove.null")
+        @NotNull(message = Messages.MESSAGES_ERROR_MOTORCYCLE_PARKREMOVE)
         Boolean parkRemove,
 
-        Licences licences,
+        Licenses licenses,
 
-        @Positive(message = "motorcycle.nbCylindree.invalid")
+        @Positive(message = Messages.MESSAGES_ERROR_MOTORCYCLE_NBCYLINDREE)
         Integer nbCylindree,
 
-        @Positive(message = "motorcycle.cylindree.invalid")
+        @Positive(message = Messages.MESSAGES_ERROR_MOTORCYCLE_CYLINDREE)
         Integer cylindree,
 
-        @Positive(message = "motorcycle.weight.invalid")
+        @Positive(message = Messages.MESSAGES_ERROR_MOTORCYCLE_WEIGHT)
         Double weight,
 
-        @Positive(message = "motorcycle.powerKw.invalid")
+        @Positive(message = Messages.MESSAGES_ERROR_MOTORCYCLE_POWERKW )
         Double powerKw,
 
-        @Positive(message = "motorcycle.saddleHeight.invalid")
+        @Positive(message = Messages.MESSAGES_ERROR_MOTORCYCLE_SADDLEHEIGHT)
         Double saddleHeight,
 
-        @NotBlank(message = "motorcycle.transmission.null")
+        @NotBlank(message = Messages.MESSAGES_ERROR_MOTORCYCLE_TRANSMISSION)
         Transmission transmission,
 
-        @NotBlank(message = "motorcycle.types.null")
+        @NotBlank(message = Messages.MESSAGES_ERROR_MOTORCYCLE_TYPES)
         Types types
 ) {}

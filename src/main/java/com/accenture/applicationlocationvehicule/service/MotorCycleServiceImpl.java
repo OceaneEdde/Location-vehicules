@@ -6,6 +6,7 @@ import com.accenture.applicationlocationvehicule.model.MotorCycle;
 import com.accenture.applicationlocationvehicule.repository.MotorCycleDao;
 import com.accenture.applicationlocationvehicule.service.dto.MotorCycleRequestDto;
 import com.accenture.applicationlocationvehicule.service.dto.MotorCycleResponseDto;
+import com.accenture.applicationlocationvehicule.utils.Messages;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -40,7 +41,7 @@ public class MotorCycleServiceImpl implements MotorCycleService {
     @Override
     public MotorCycleResponseDto findMotorCycleById(int id) {
         MotorCycle motorCycle = motorCycleDao.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(messages.getMessage("motorcycle.id.notfound")));
+                .orElseThrow(() -> new EntityNotFoundException(messages.getMessage(Messages.MESSAGES_ERROR_MOTORCYCLE_NOTFOUND)));
 
         return motorCycleMapper.toMotorCycleResponseDto(motorCycle);
     }
@@ -48,7 +49,7 @@ public class MotorCycleServiceImpl implements MotorCycleService {
     @Override
     public void deleteMotorCycle(int id) {
         MotorCycle motorCycle = motorCycleDao.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(messages.getMessage("motorcycle.id.notfound")));
+                .orElseThrow(() -> new EntityNotFoundException(messages.getMessage(Messages.MESSAGES_ERROR_MOTORCYCLE_NOTFOUND)));
 
         motorCycleDao.delete(motorCycle);
     }
@@ -56,10 +57,32 @@ public class MotorCycleServiceImpl implements MotorCycleService {
     @Override
     public MotorCycleResponseDto updateMotorCycle(int id, MotorCycleRequestDto dto) {
         MotorCycle motorCycle = motorCycleDao.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(messages.getMessage("motorcycle.id.notfound")));
+                .orElseThrow(() -> new EntityNotFoundException(messages.getMessage(Messages.MESSAGES_ERROR_MOTORCYCLE_NOTFOUND)));
 
         auditor(dto);
 
+        applyFullUpdate(motorCycle, dto);
+
+        motorCycleDao.save(motorCycle);
+
+        return motorCycleMapper.toMotorCycleResponseDto(motorCycle);
+
+    }
+
+    @Override
+    public MotorCycleResponseDto updateMotorCyclePartially(int id, MotorCycleRequestDto dto) {
+        MotorCycle motorCycle = motorCycleDao.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(messages.getMessage(Messages.MESSAGES_ERROR_MOTORCYCLE_NOTFOUND)));
+
+        applyPartiallyUpdate(motorCycle, dto);
+
+        motorCycleDao.save(motorCycle);
+
+        return motorCycleMapper.toMotorCycleResponseDto(motorCycle);
+    }
+
+        //  Sous-méthodes
+    private void applyFullUpdate(MotorCycle motorCycle, MotorCycleRequestDto dto) {
         motorCycle.setBrand(dto.brand());
         motorCycle.setModel(dto.model());
         motorCycle.setColor(dto.color());
@@ -68,7 +91,7 @@ public class MotorCycleServiceImpl implements MotorCycleService {
         motorCycle.setMileage(dto.mileage());
         motorCycle.setActive(dto.active());
         motorCycle.setParkRemove(dto.parkRemove());
-        motorCycle.setLicences(dto.licences());
+        motorCycle.setLicenses(dto.licenses());
         motorCycle.setCylindree(dto.cylindree());
         motorCycle.setTypes(dto.types());
         motorCycle.setNbCylindree(dto.nbCylindree());
@@ -77,122 +100,47 @@ public class MotorCycleServiceImpl implements MotorCycleService {
         motorCycle.setSaddleHeight(dto.saddleHeight());
         motorCycle.setTransmission(dto.transmission());
 
-
-        return motorCycleMapper.toMotorCycleResponseDto(motorCycle);
     }
 
-    @Override
-    public MotorCycleResponseDto updateMotorCyclePartially(int id, MotorCycleRequestDto dto) {
-        MotorCycle motorCycle = motorCycleDao.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(messages.getMessage("motorcycle.id.notfound")));
-
-        if (dto.brand() != null && !dto.brand().isBlank())
-            motorCycle.setBrand(dto.brand());
-
-        if (dto.model() != null && !dto.model().isBlank())
-            motorCycle.setModel(dto.model());
-
-        if (dto.color() != null && !dto.color().isBlank())
-            motorCycle.setColor(dto.color());
-
-        if (dto.fuelType() != null)
-            motorCycle.setFuelType(dto.fuelType());
-
-        if (dto.dailyRate() != null && dto.dailyRate() > 0)
-            motorCycle.setDailyRate(dto.dailyRate());
-
-        if (dto.mileage() != null && dto.mileage() >= 0)
-            motorCycle.setMileage(dto.mileage());
-
-        if (dto.active() != null)
-            motorCycle.setActive(dto.active());
-
-        if (dto.parkRemove() != null)
-            motorCycle.setParkRemove(dto.parkRemove());
-
-        if (dto.licences() != null )
-            motorCycle.setLicences(dto.licences());
-
-        if (dto.cylindree() != null)
-            motorCycle.setCylindree(dto.cylindree());
-
-        if (dto.nbCylindree() != null && dto.nbCylindree() > 0)
-            motorCycle.setNbCylindree(dto.nbCylindree());
-
-        if (dto.weight() != null && dto.weight() > 0)
-            motorCycle.setWeight(dto.weight());
-
-        if (dto.powerKw() != null && dto.powerKw() > 0)
-            motorCycle.setPowerKw(dto.powerKw());
-
-        if (dto.saddleHeight() != null && dto.saddleHeight() > 0)
-            motorCycle.setSaddleHeight(dto.saddleHeight());
-
-        if (dto.transmission() != null)
-            motorCycle.setTransmission(dto.transmission());
-
-        if (dto.types() != null)
-            motorCycle.setTypes(dto.types());
-
-
-        return motorCycleMapper.toMotorCycleResponseDto(motorCycle);
+    private void applyPartiallyUpdate(MotorCycle motorCycle, MotorCycleRequestDto dto) {
+        if (dto.brand() != null && !dto.brand().isBlank()) motorCycle.setBrand(dto.brand());
+        if (dto.model() != null && !dto.model().isBlank()) motorCycle.setModel(dto.model());
+        if (dto.color() != null && !dto.color().isBlank()) motorCycle.setColor(dto.color());
+        if (dto.fuelType() != null) motorCycle.setFuelType(dto.fuelType());
+        if (dto.dailyRate() != null && dto.dailyRate() > 0) motorCycle.setDailyRate(dto.dailyRate());
+        if (dto.mileage() != null && dto.mileage() >= 0) motorCycle.setMileage(dto.mileage());
+        if (dto.active() != null) motorCycle.setActive(dto.active());
+        if (dto.parkRemove() != null) motorCycle.setParkRemove(dto.parkRemove());
+        if (dto.licenses() != null ) motorCycle.setLicenses(dto.licenses());
+        if (dto.cylindree() != null) motorCycle.setCylindree(dto.cylindree());
+        if (dto.nbCylindree() != null && dto.nbCylindree() > 0) motorCycle.setNbCylindree(dto.nbCylindree());
+        if (dto.weight() != null && dto.weight() > 0) motorCycle.setWeight(dto.weight());
+        if (dto.powerKw() != null && dto.powerKw() > 0) motorCycle.setPowerKw(dto.powerKw());
+        if (dto.saddleHeight() != null && dto.saddleHeight() > 0) motorCycle.setSaddleHeight(dto.saddleHeight());
+        if (dto.transmission() != null) motorCycle.setTransmission(dto.transmission());
+        if (dto.types() != null) motorCycle.setTypes(dto.types());
     }
 
     private void auditor(MotorCycleRequestDto dto) {
-        if (dto == null)
-            throw new MotorCycleException(messages.getMessage("motorcycle.null"));
-
-        if (dto.brand() == null || dto.brand().isBlank())
-            throw new MotorCycleException(messages.getMessage("motorcycle.brand.null"));
-
-        if (dto.model() == null || dto.model().isBlank())
-            throw new MotorCycleException(messages.getMessage("motorcycle.model.null"));
-
-        if (dto.color() == null || dto.color().isBlank())
-            throw new MotorCycleException(messages.getMessage("motorcycle.color.null"));
-
-        if (dto.fuelType() == null)
-            throw new MotorCycleException(messages.getMessage("motorcycle.fueltype.null"));
-
-        if (dto.dailyRate() == null)
-            throw new MotorCycleException(messages.getMessage("motorcycle.dailyrate.null"));
-        if (dto.dailyRate() <= 0)
-            throw new MotorCycleException(messages.getMessage("motorcycle.dailyrate.min"));
-
-        if (dto.mileage() == null)
-            throw new MotorCycleException(messages.getMessage("motorcycle.mileage.null"));
-        if (dto.mileage() < 0)
-            throw new MotorCycleException(messages.getMessage("motorcycle.mileage.min"));
-
-        if (dto.active() == null)
-            throw new MotorCycleException(messages.getMessage("motorcycle.active.null"));
-
-        if (dto.parkRemove() == null)
-            throw new MotorCycleException(messages.getMessage("motorcycle.parkremove.null"));
-
-        if (dto.licences() == null)
-            throw new MotorCycleException(messages.getMessage("motorcycle.licences.null"));
-
-        if (dto.nbCylindree() == null || dto.nbCylindree() <= 0)
-            throw new MotorCycleException(messages.getMessage("motorcycle.nbcylindree.invalid"));
-
-        if (dto.cylindree() == null || dto.cylindree() <= 0)
-            throw new MotorCycleException(messages.getMessage("motorcycle.cylindree.invalid"));
-
-        if (dto.weight() == null || dto.weight() <= 0)
-            throw new MotorCycleException(messages.getMessage("motorcycle.weight.invalid"));
-
-        if (dto.powerKw() == null || dto.powerKw() <= 0)
-            throw new MotorCycleException(messages.getMessage("motorcycle.powerkw.invalid"));
-
-        if (dto.saddleHeight() == null || dto.saddleHeight() <= 0)
-            throw new MotorCycleException(messages.getMessage("motorcycle.saddleheight.invalid"));
-
-        if (dto.transmission() == null)
-            throw new MotorCycleException(messages.getMessage("motorcycle.transmission.null"));
-
-        if (dto.types() == null)
-            throw new MotorCycleException(messages.getMessage("motorcycle.types.null"));
+        if (dto == null) throw new MotorCycleException(messages.getMessage(Messages.MESSAGES_ERROR_MOTORCYCLE_NOTFOUND));
+        if (dto.brand() == null || dto.brand().isBlank()) throw new MotorCycleException(messages.getMessage(Messages.MESSAGES_ERROR_MOTORCYCLE_BRAND));
+        if (dto.model() == null || dto.model().isBlank()) throw new MotorCycleException(messages.getMessage(Messages.MESSAGES_ERROR_MOTORCYCLE_MODEL));
+        if (dto.color() == null || dto.color().isBlank()) throw new MotorCycleException(messages.getMessage(Messages.MESSAGES_ERROR_MOTORCYCLE_COLOR));
+        if (dto.fuelType() == null) throw new MotorCycleException(messages.getMessage(Messages.MESSAGES_ERROR_MOTORCYCLE_FUELTYPE));
+        if (dto.dailyRate() == null) throw new MotorCycleException(messages.getMessage(Messages.MESSAGES_ERROR_MOTORCYCLE_DAILYRATE_NULL));
+        if (dto.dailyRate() <= 0) throw new MotorCycleException(messages.getMessage(Messages.MESSAGES_ERROR_MOTORCYCLE_DAILYRATE_MIN));
+        if (dto.mileage() == null) throw new MotorCycleException(messages.getMessage(Messages.MESSAGES_ERROR_MOTORCYCLE_MILEAGE_NULL));
+        if (dto.mileage() < 0) throw new MotorCycleException(messages.getMessage(Messages.MESSAGES_ERROR_MOTORCYCLE_MILEAGE_MIN));
+        if (dto.active() == null) throw new MotorCycleException(messages.getMessage(Messages.MESSAGES_ERROR_MOTORCYCLE_ACTIVE));
+        if (dto.parkRemove() == null) throw new MotorCycleException(messages.getMessage(Messages.MESSAGES_ERROR_MOTORCYCLE_PARKREMOVE));
+        if (dto.licenses() == null) throw new MotorCycleException(messages.getMessage(Messages.MESSAGES_ERROR_MOTORCYCLE_LICENSES));
+        if (dto.nbCylindree() == null || dto.nbCylindree() <= 0) throw new MotorCycleException(messages.getMessage(Messages.MESSAGES_ERROR_MOTORCYCLE_NBCYLINDREE));
+        if (dto.cylindree() == null || dto.cylindree() <= 0) throw new MotorCycleException(messages.getMessage(Messages.MESSAGES_ERROR_MOTORCYCLE_CYLINDREE));
+        if (dto.weight() == null || dto.weight() <= 0) throw new MotorCycleException(messages.getMessage(Messages.MESSAGES_ERROR_MOTORCYCLE_WEIGHT));
+        if (dto.powerKw() == null || dto.powerKw() <= 0) throw new MotorCycleException(messages.getMessage(Messages.MESSAGES_ERROR_MOTORCYCLE_POWERKW));
+        if (dto.saddleHeight() == null || dto.saddleHeight() <= 0) throw new MotorCycleException(messages.getMessage(Messages.MESSAGES_ERROR_MOTORCYCLE_SADDLEHEIGHT));
+        if (dto.transmission() == null) throw new MotorCycleException(messages.getMessage(Messages.MESSAGES_ERROR_MOTORCYCLE_TRANSMISSION));
+        if (dto.types() == null) throw new MotorCycleException(messages.getMessage(Messages.MESSAGES_ERROR_MOTORCYCLE_TYPES));
 
     }
 }
