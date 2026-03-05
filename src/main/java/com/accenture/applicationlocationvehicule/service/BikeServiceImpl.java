@@ -54,21 +54,6 @@ public class BikeServiceImpl implements BikeService {
         bikeDao.delete(bike);
     }
 
-    @Override
-    public BikeResponseDto updateBike(int id, BikeRequestDto dto) {
-        Bike bike = bikeDao.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(messages.getMessage(Messages.MESSAGES_ERROR_BIKE_NOTFOUND)));
-
-        auditor(dto);
-
-        applyFullUpdate(bike, dto);
-
-        bikeDao.save(bike);
-
-        return bikeMapper.toBikeResponseDto(bike);
-
-    }
-
 
     @Override
     public BikeResponseDto updateBikePartially(int id, BikeRequestDto dto) {
@@ -86,23 +71,6 @@ public class BikeServiceImpl implements BikeService {
 
 
     //  Sous-méthodes
-    private void applyFullUpdate(Bike bike, BikeRequestDto dto) {
-        bike.setBrand(dto.brand());
-        bike.setModel(dto.model());
-        bike.setColor(dto.color());
-        bike.setDailyRate(dto.dailyRate());
-        bike.setMileage(dto.mileage());
-        bike.setActive(dto.active());
-        bike.setParkRemove(dto.parkRemove());
-        bike.setWeight(dto.weight());
-        bike.setFrameSize(dto.frameSize());
-        bike.setElectric(dto.electric());
-        bike.setCapacityBattery(dto.capacityBattery());
-        bike.setAutonomy(dto.autonomy());
-        bike.setDiscBrake(dto.discBrake());
-        bike.setTypes(dto.types());
-
-    }
 
     private void applyPartiallyUpdate(Bike bike, BikeRequestDto dto) {
         if (dto.brand() != null && !dto.brand().isBlank()) bike.setBrand(dto.brand());

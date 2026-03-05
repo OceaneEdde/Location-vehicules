@@ -22,9 +22,6 @@ public interface MotorHomeApi {
     @DeleteMapping("/{id}")
     ResponseEntity<Void> deleteMotorHome(@PathVariable int id);
 
-    @PutMapping("/{id}")
-    ResponseEntity<MotorHomeResponseDto> putMotorHome(@PathVariable int id, @RequestBody MotorHomeRequestDto dto);
-
     @PatchMapping("/{id}")
     ResponseEntity<MotorHomeResponseDto> patchMotorHome(@PathVariable int id, @RequestBody MotorHomeRequestDto dto);
 }

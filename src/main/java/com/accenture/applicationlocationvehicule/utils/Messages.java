@@ -98,7 +98,6 @@ public class Messages {
     public static final String MESSAGES_ERROR_MOTORHOME_TRANSMISSION = "motorHome.transmission.null";
 
 
-
     //TRUCK MESSAGES
 
     public static final String MESSAGES_ERROR_TRUCK_NOTFOUND = "truck.id.notfound";
@@ -121,5 +120,31 @@ public class Messages {
     public static final String MESSAGES_ERROR_TRUCK_CONDITIONINGAIR = "truck.conditioningair.null";
     public static final String MESSAGES_ERROR_TRUCK_TYPES = "truck.types.null";
 
+
+    //CLIENT MESSAGES
+    public static final String MESSAGES_ERROR_CLIENT_NOTFOUND = "client.id.notfound";
+    public static final String MESSAGES_ERROR_CLIENT_FIRSTNAME = "client.firstname.notfound";
+    public static final String MESSAGES_ERROR_CLIENT_FIRSTNAME_INVALID = "client.firstname.invalid";
+    public static final String MESSAGES_ERROR_CLIENT_LASTNAME = "client.lastname.notfound";
+    public static final String MESSAGES_ERROR_CLIENT_LASTNAME_INVALID = "client.lastname.invalid";
+    public static final String MESSAGES_ERROR_CLIENT_EMAIL = "client.email.notfound";
+    public static final String MESSAGES_ERROR_CLIENT_EMAIL_INVALID = "client.email.invalid";
+    public static final String MESSAGES_ERROR_CLIENT_PASSWORD = "client.password.notfound";
+    public static final String MESSAGES_ERROR_CLIENT_PASSWORD_INVALID = "client.password.invalid";
+    public static final String MESSAGES_ERROR_CLIENT_ADDRESS = "client.address.notfound";
+    public static final String MESSAGES_ERROR_CLIENT_BIRTHDATE = "client.birthdate.notfound";
+    public static final String MESSAGES_ERROR_CLIENT_INSCRIPTIONDATE = "client.inscriptiondate.notfound";
+    public static final String MESSAGES_ERROR_CLIENT_LICENSES = "client.licenses.notfound";
+
+
+    //CLIENT MESSAGES
+    public static final String MESSAGES_ERROR_ADMINISTRATOR_NOTFOUND = "administrator.id.notfound";
+    public static final String MESSAGES_ERROR_ADMINISTRATOR_FIRSTNAME = "administrator.firstname.notfound";
+    public static final String MESSAGES_ERROR_ADMINISTRATOR_FIRSTNAME_INVALID = "administrator.firstname.invalid";
+    public static final String MESSAGES_ERROR_ADMINISTRATOR_LASTNAME = "administrator.lastname.notfound";
+    public static final String MESSAGES_ERROR_ADMINISTRATOR_LASTNAME_INVALID = "administrator.lastname.invalid";
+    public static final String MESSAGES_ERROR_ADMINISTRATOR_EMAIL = "administrator.email.notfound";
+    public static final String MESSAGES_ERROR_ADMINISTRATOR_EMAIL_INVALID = "administrator.email.invalid";
+    public static final String MESSAGES_ERROR_ADMINISTRATOR_PASSWORD = "administrator.password.notfound";
 
 }

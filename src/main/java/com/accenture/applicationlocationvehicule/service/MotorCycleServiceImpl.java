@@ -54,20 +54,6 @@ public class MotorCycleServiceImpl implements MotorCycleService {
         motorCycleDao.delete(motorCycle);
     }
 
-    @Override
-    public MotorCycleResponseDto updateMotorCycle(int id, MotorCycleRequestDto dto) {
-        MotorCycle motorCycle = motorCycleDao.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(messages.getMessage(Messages.MESSAGES_ERROR_MOTORCYCLE_NOTFOUND)));
-
-        auditor(dto);
-
-        applyFullUpdate(motorCycle, dto);
-
-        motorCycleDao.save(motorCycle);
-
-        return motorCycleMapper.toMotorCycleResponseDto(motorCycle);
-
-    }
 
     @Override
     public MotorCycleResponseDto updateMotorCyclePartially(int id, MotorCycleRequestDto dto) {
@@ -82,25 +68,6 @@ public class MotorCycleServiceImpl implements MotorCycleService {
     }
 
         //  Sous-méthodes
-    private void applyFullUpdate(MotorCycle motorCycle, MotorCycleRequestDto dto) {
-        motorCycle.setBrand(dto.brand());
-        motorCycle.setModel(dto.model());
-        motorCycle.setColor(dto.color());
-        motorCycle.setFuelType(dto.fuelType());
-        motorCycle.setDailyRate(dto.dailyRate());
-        motorCycle.setMileage(dto.mileage());
-        motorCycle.setActive(dto.active());
-        motorCycle.setParkRemove(dto.parkRemove());
-        motorCycle.setLicenses(dto.licenses());
-        motorCycle.setCylindree(dto.cylindree());
-        motorCycle.setTypes(dto.types());
-        motorCycle.setNbCylindree(dto.nbCylindree());
-        motorCycle.setWeight(dto.weight());
-        motorCycle.setPowerKw(dto.powerKw());
-        motorCycle.setSaddleHeight(dto.saddleHeight());
-        motorCycle.setTransmission(dto.transmission());
-
-    }
 
     private void applyPartiallyUpdate(MotorCycle motorCycle, MotorCycleRequestDto dto) {
         if (dto.brand() != null && !dto.brand().isBlank()) motorCycle.setBrand(dto.brand());

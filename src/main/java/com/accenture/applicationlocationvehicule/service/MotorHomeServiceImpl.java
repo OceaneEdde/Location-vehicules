@@ -55,21 +55,6 @@ public class MotorHomeServiceImpl implements MotorHomeService {
         motorHomeDao.delete(motorHome);
     }
 
-    @Override
-    public MotorHomeResponseDto updateMotorHome(int id, MotorHomeRequestDto dto) {
-        MotorHome motorHome = motorHomeDao.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(messages.getMessage(Messages.MESSAGES_ERROR_MOTORHOME_NOTFOUND)));
-
-        auditor(dto);
-
-        applyFullUpdate(motorHome, dto);
-
-        motorHomeDao.save(motorHome);
-
-        return motorHomeMapper.toMotorHomeResponseDto(motorHome);
-
-    }
-
         @Override
         public MotorHomeResponseDto updateMotorHomePartially(int id, MotorHomeRequestDto dto) {
             MotorHome motorHome = motorHomeDao.findById(id)
@@ -84,28 +69,6 @@ public class MotorHomeServiceImpl implements MotorHomeService {
         }
 
     //  Sous-méthodes
-    private void applyFullUpdate(MotorHome motorHome, MotorHomeRequestDto dto){
-        motorHome.setBrand(dto.brand());
-        motorHome.setModel(dto.model());
-        motorHome.setColor(dto.color());
-        motorHome.setFuelType(dto.fuelType());
-        motorHome.setDailyRate(dto.dailyRate());
-        motorHome.setMileage(dto.mileage());
-        motorHome.setActive(dto.active());
-        motorHome.setParkRemove(dto.parkRemove());
-        motorHome.setLicenses(dto.licenses());
-        motorHome.setNbPlaces(dto.nbPlaces());
-        motorHome.setPtac(dto.ptac());
-        motorHome.setHeight(dto.height());
-        motorHome.setKitchen(dto.kitchen());
-        motorHome.setNbBed(dto.nbBed());
-        motorHome.setBedLinen(dto.bedLinen());
-        motorHome.setFridge(dto.fridge());
-        motorHome.setShower(dto.shower());
-        motorHome.setTypes(dto.types());
-        motorHome.setTransmission(dto.transmission());
-    }
-
 
     private void applyPartiallyUpdate(MotorHome motorHome, MotorHomeRequestDto dto){
         if (dto.brand() != null && !dto.brand().isBlank()) motorHome.setBrand(dto.brand());

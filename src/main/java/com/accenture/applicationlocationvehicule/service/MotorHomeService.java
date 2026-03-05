@@ -15,8 +15,6 @@ public interface MotorHomeService {
 
     void deleteMotorHome(int id);
 
-    MotorHomeResponseDto updateMotorHome(int id, MotorHomeRequestDto dto);
-
     MotorHomeResponseDto updateMotorHomePartially(int idMotorHome, MotorHomeRequestDto requestDto);
 }
 

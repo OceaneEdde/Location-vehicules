@@ -51,11 +51,6 @@ public class CarController implements CarApi {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    @Override
-    public ResponseEntity<CarResponseDto> putCar(int idCar, CarRequestDto requestDto) {
-        CarResponseDto responseDto = carService.updateCar(idCar, requestDto);
-        return ResponseEntity.ok(responseDto);
-    }
 
     @Override
     public ResponseEntity<CarResponseDto> patchCar(int idCar, CarRequestDto requestDto) {

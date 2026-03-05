@@ -16,8 +16,6 @@ public interface MotorCycleService {
 
     void deleteMotorCycle(int idMotorCycle);
 
-    MotorCycleResponseDto updateMotorCycle(int idMotorCycle, MotorCycleRequestDto dto);
-
     MotorCycleResponseDto updateMotorCyclePartially(int idMotorCycle, MotorCycleRequestDto dto);
 
 }

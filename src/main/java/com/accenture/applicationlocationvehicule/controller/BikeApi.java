@@ -23,9 +23,6 @@ public interface BikeApi {
     @DeleteMapping("/{id}")
     ResponseEntity<Void> deleteBike(@PathVariable int id);
 
-    @PutMapping("/{id}")
-    ResponseEntity<BikeResponseDto> putBike(@PathVariable int id, @RequestBody BikeRequestDto dto);
-
     @PatchMapping("/{id}")
     ResponseEntity<BikeResponseDto> patchBike(@PathVariable int id, @RequestBody BikeRequestDto dto);
 }

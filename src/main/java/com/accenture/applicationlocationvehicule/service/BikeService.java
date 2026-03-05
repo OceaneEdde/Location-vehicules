@@ -14,8 +14,6 @@ public interface BikeService {
 
     void deleteBike(int id);
 
-    BikeResponseDto updateBike(int id, BikeRequestDto dto);
-
     BikeResponseDto updateBikePartially(int idBike, BikeRequestDto requestDto);
 }
 

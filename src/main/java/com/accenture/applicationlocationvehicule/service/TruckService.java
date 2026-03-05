@@ -15,8 +15,6 @@ public interface TruckService {
 
     void deleteTruck(int id);
 
-    TruckResponseDto updateTruck(int id, TruckRequestDto dto);
-
     TruckResponseDto updateTruckPartially(int idTruck, TruckRequestDto requestDto);
 }
 

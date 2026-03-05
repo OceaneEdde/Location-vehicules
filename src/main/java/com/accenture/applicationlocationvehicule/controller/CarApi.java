@@ -23,9 +23,6 @@ public interface CarApi {
     @DeleteMapping("/{id}")
     ResponseEntity<Void> deleteCar(@PathVariable int id);
 
-    @PutMapping("/{id}")
-    ResponseEntity<CarResponseDto> putCar(@PathVariable int id, @RequestBody CarRequestDto dto);
-
     @PatchMapping("/{id}")
     ResponseEntity<CarResponseDto> patchCar(@PathVariable int id, @RequestBody CarRequestDto dto);
 }

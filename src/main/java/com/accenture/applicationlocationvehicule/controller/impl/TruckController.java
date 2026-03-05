@@ -50,11 +50,6 @@ public class TruckController implements TruckApi {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    @Override
-    public ResponseEntity<TruckResponseDto> putTruck(int idTruck, TruckRequestDto requestDto) {
-        TruckResponseDto responseDto = truckService.updateTruck(idTruck, requestDto);
-        return ResponseEntity.ok(responseDto);
-    }
 
     @Override
     public ResponseEntity<TruckResponseDto> patchTruck(int idTruck, TruckRequestDto requestDto) {

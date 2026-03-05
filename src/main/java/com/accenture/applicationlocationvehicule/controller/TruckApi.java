@@ -23,9 +23,6 @@ public interface TruckApi {
     @DeleteMapping("/{id}")
     ResponseEntity<Void> deleteTruck(@PathVariable int id);
 
-    @PutMapping("/{id}")
-    ResponseEntity<TruckResponseDto> putTruck(@PathVariable int id, @RequestBody TruckRequestDto dto);
-
     @PatchMapping("/{id}")
     ResponseEntity<TruckResponseDto> patchTruck(@PathVariable int id, @RequestBody TruckRequestDto dto);
 }

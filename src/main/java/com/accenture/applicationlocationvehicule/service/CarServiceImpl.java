@@ -55,20 +55,6 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public CarResponseDto updateCar(int id, CarRequestDto dto) {
-        Car car = carDao.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(messages.getMessage(Messages.MESSAGES_ERROR_CAR_NOTFOUND)));
-
-        auditor(dto);
-
-        applyFullUpdate(car, dto);
-
-        carDao.save(car);
-
-        return carMapper.toCarResponseDto(car);
-    }
-
-    @Override
     public CarResponseDto updateCarPartially(int id, CarRequestDto dto) {
         Car car = carDao.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(messages.getMessage(Messages.MESSAGES_ERROR_CAR_NOTFOUND)));
@@ -82,23 +68,6 @@ public class CarServiceImpl implements CarService {
 
 
     //  Sous-méthode
-    private void applyFullUpdate(Car car, CarRequestDto dto){
-        car.setBrand(dto.brand());
-        car.setModel(dto.model());
-        car.setColor(dto.color());
-        car.setFuelType(dto.fuelType());
-        car.setDailyRate(dto.dailyRate());
-        car.setMileage(dto.mileage());
-        car.setActive(dto.active());
-        car.setParkRemove(dto.parkRemove());
-        car.setLicenses(dto.licenses());
-        car.setNbPlaces(dto.nbPlaces());
-        car.setNbDoors(dto.nbDoors());
-        car.setConditioningAir(dto.conditioningAir());
-        car.setTransmission(dto.transmission());
-        car.setTypes(dto.types());
-    }
-
 
     private void applyPartiallyUpdate(Car car, CarRequestDto dto){
         if (dto.brand() != null && !dto.brand().isBlank()) car.setBrand(dto.brand());

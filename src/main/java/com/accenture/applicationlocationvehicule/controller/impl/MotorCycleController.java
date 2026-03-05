@@ -51,12 +51,6 @@ public class MotorCycleController implements MotorCycleApi {
     }
 
     @Override
-    public ResponseEntity<MotorCycleResponseDto> putMotorCycle(int idMotorCycle, MotorCycleRequestDto requestDto) {
-        MotorCycleResponseDto responseDto = motorCycleService.updateMotorCycle(idMotorCycle, requestDto);
-        return ResponseEntity.ok(responseDto);
-    }
-
-    @Override
     public ResponseEntity<MotorCycleResponseDto> patchMotorCycle(int idMotorCycle, MotorCycleRequestDto requestDto) {
         MotorCycleResponseDto responseDto = motorCycleService.updateMotorCyclePartially(idMotorCycle, requestDto);
         return ResponseEntity.ok(responseDto);

@@ -22,9 +22,6 @@ public interface MotorCycleApi {
     @DeleteMapping("/{id}")
     ResponseEntity<Void> deleteMotorCycle(@PathVariable int id);
 
-    @PutMapping("/{id}")
-    ResponseEntity<MotorCycleResponseDto> putMotorCycle(@PathVariable int id, @RequestBody MotorCycleRequestDto dto);
-
     @PatchMapping("/{id}")
     ResponseEntity<MotorCycleResponseDto> patchMotorCycle(@PathVariable int id, @RequestBody MotorCycleRequestDto dto);
 }

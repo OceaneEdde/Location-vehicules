@@ -1,6 +1,7 @@
 package com.accenture.applicationlocationvehicule.service.dto;
 
 import com.accenture.applicationlocationvehicule.model.enums.FuelType;
+import com.accenture.applicationlocationvehicule.model.enums.Licenses;
 
 public record CarResponseDto(
         int id,
@@ -12,6 +13,7 @@ public record CarResponseDto(
         Double mileage,
         Boolean active,
         Boolean parkRemove,
-        String requiredPermit
-) {}
+        Licenses licenses) {
+
+}
 

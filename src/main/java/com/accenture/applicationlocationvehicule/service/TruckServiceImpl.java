@@ -55,20 +55,6 @@ public class TruckServiceImpl implements TruckService {
     }
 
     @Override
-    public TruckResponseDto updateTruck(int id, TruckRequestDto dto) {
-        Truck truck = truckDao.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(messages.getMessage(Messages.MESSAGES_ERROR_TRUCK_NOTFOUND)));
-
-        auditor(dto);
-
-        applyFullUpdate(truck, dto);
-
-        truckDao.save(truck);
-
-        return truckMapper.toTruckResponseDto(truck);
-    }
-
-    @Override
     public TruckResponseDto updateTruckPartially(int id, TruckRequestDto dto) {
         Truck truck = truckDao.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(messages.getMessage(Messages.MESSAGES_ERROR_TRUCK_NOTFOUND)));
@@ -82,24 +68,6 @@ public class TruckServiceImpl implements TruckService {
 
 
     //   Sous-méthodes
-    private void applyFullUpdate(Truck truck, TruckRequestDto dto) {
-        truck.setBrand(dto.brand());
-        truck.setModel(dto.model());
-        truck.setColor(dto.color());
-        truck.setFuelType(dto.fuelType());
-        truck.setDailyRate(dto.dailyRate());
-        truck.setMileage(dto.mileage());
-        truck.setActive(dto.active());
-        truck.setParkRemove(dto.parkRemove());
-        truck.setLicenses(dto.licenses());
-        truck.setNbPlaces(dto.nbPlaces());
-        truck.setLoadMax(dto.loadMax());
-        truck.setCapacity(dto.capacity());
-        truck.setPtac(dto.ptac());
-        truck.setTransmission(dto.transmission());
-        truck.setConditioningAir(dto.conditioningAir());
-        truck.setTypes(dto.types());
-    }
 
     private void applyPartialUpdate(Truck truck, TruckRequestDto dto) {
         if (dto.brand() != null && !dto.brand().isBlank()) truck.setBrand(dto.brand());

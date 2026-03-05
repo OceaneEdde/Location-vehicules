@@ -50,11 +50,6 @@ public class BikeController implements BikeApi {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    @Override
-    public ResponseEntity<BikeResponseDto> putBike(int idBike, BikeRequestDto requestDto) {
-        BikeResponseDto responseDto = bikeService.updateBike(idBike, requestDto);
-        return ResponseEntity.ok(responseDto);
-    }
 
     @Override
     public ResponseEntity<BikeResponseDto> patchBike(int idBike, BikeRequestDto requestDto) {

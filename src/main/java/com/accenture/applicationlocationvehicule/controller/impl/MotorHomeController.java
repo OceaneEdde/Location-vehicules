@@ -50,11 +50,6 @@ public class MotorHomeController implements MotorHomeApi {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    @Override
-    public ResponseEntity<MotorHomeResponseDto> putMotorHome(int idMotorHome, MotorHomeRequestDto requestDto) {
-        MotorHomeResponseDto responseDto = motorHomeService.updateMotorHome(idMotorHome, requestDto);
-        return ResponseEntity.ok(responseDto);
-    }
 
     @Override
     public ResponseEntity<MotorHomeResponseDto> patchMotorHome(int idMotorHome, MotorHomeRequestDto requestDto) {
