@@ -71,22 +71,8 @@ public class ClientServiceImpl implements ClientService {
     }
 
 
-
     //Sous-méthode
     private void applyPartiallyUpdate(Client client, ClientRequestDto dto) {
-        if (dto.firstname() != null && !dto.firstname().isBlank()) client.setFirstname(dto.firstname());
-        if (dto.lastname() != null && !dto.lastname().isBlank()) client.setLastname(dto.lastname());
-        if (dto.email() != null && !dto.email().isBlank()) client.setEmail(dto.email());
-        if (dto.address() != null && !dto.address().isBlank()) client.setAddress(dto.address());
-        if (dto.birthdate() != null) client.setBirthdate(dto.birthdate());
-        if (dto.inscriptiondate() != null) client.setInscriptiondate(dto.inscriptiondate());
-        if (dto.licensesListe() != null) client.setLicensesListe(dto.licensesListe());
-        if (dto.password() != null) client.setPassword(dto.password());
-    }
-
-
-    private void auditor(ClientRequestDto dto) {
-
         if (dto == null) throw new ClientException(messages.getMessage(Messages.MESSAGES_ERROR_CLIENT_NOTFOUND));
         if (dto.firstname() == null || dto.firstname().isBlank()) throw new ClientException(messages.getMessage(Messages.MESSAGES_ERROR_CLIENT_FIRSTNAME));
         if (!validations.isValidName(dto.firstname())) throw new ClientException(messages.getMessage(Messages.MESSAGES_ERROR_CLIENT_FIRSTNAME_INVALID));
@@ -96,14 +82,22 @@ public class ClientServiceImpl implements ClientService {
         if (!validations.isValidEmail(dto.email())) throw new ClientException(messages.getMessage(Messages.MESSAGES_ERROR_CLIENT_EMAIL_INVALID));
         if (dto.password() == null || dto.password().isBlank()) throw new ClientException(messages.getMessage(Messages.MESSAGES_ERROR_CLIENT_PASSWORD));
         if (!validations.isValidPassword(dto.password())) throw new ClientException(messages.getMessage(Messages.MESSAGES_ERROR_CLIENT_PASSWORD_INVALID));
-        if (dto.address() == null || dto.address().isBlank()) throw new ClientException(messages.getMessage(Messages.MESSAGES_ERROR_CLIENT_ADDRESS));
+        if (dto.address() == null) throw new ClientException(messages.getMessage(Messages.MESSAGES_ERROR_CLIENT_ADDRESS));
         if (dto.birthdate() == null) throw new ClientException(messages.getMessage(Messages.MESSAGES_ERROR_CLIENT_BIRTHDATE));
-        if (dto.inscriptiondate() == null) throw new ClientException(messages.getMessage(Messages.MESSAGES_ERROR_CLIENT_INSCRIPTIONDATE));
-        if (dto.licensesListe() == null) throw new ClientException(messages.getMessage(Messages.MESSAGES_ERROR_CLIENT_LICENSES));
+        if (dto.registrationdate() == null) throw new ClientException(messages.getMessage(Messages.MESSAGES_ERROR_CLIENT_REGISTRATIONDATE));
+        if (dto.licensesListeList() == null || dto.licensesListeList().isEmpty()) throw new ClientException(messages.getMessage(Messages.MESSAGES_ERROR_CLIENT_LICENSES));
     }
 
 
+    private void auditor(ClientRequestDto dto) {
 
-
+        if (dto == null) throw new ClientException(messages.getMessage(Messages.MESSAGES_ERROR_CLIENT_NOTFOUND));
+        if (dto.firstname() != null && !validations.isValidName(dto.firstname())) throw new ClientException(messages.getMessage(Messages.MESSAGES_ERROR_CLIENT_FIRSTNAME_INVALID));
+        if (dto.lastname() != null && !validations.isValidName(dto.lastname())) throw new ClientException(messages.getMessage(Messages.MESSAGES_ERROR_CLIENT_LASTNAME_INVALID));
+        if (dto.email() != null && !validations.isValidEmail(dto.email())) throw new ClientException(messages.getMessage(Messages.MESSAGES_ERROR_CLIENT_EMAIL_INVALID));
+        if (dto.password() != null && !validations.isValidPassword(dto.password())) throw new ClientException(messages.getMessage(Messages.MESSAGES_ERROR_CLIENT_PASSWORD_INVALID));
+        if (dto.licensesListeList() != null && dto.licensesListeList().isEmpty()) {throw new ClientException(messages.getMessage(Messages.MESSAGES_ERROR_CLIENT_LICENSES));
+        }
+    }
 }
 

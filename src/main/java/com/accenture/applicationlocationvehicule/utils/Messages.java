@@ -133,7 +133,7 @@ public class Messages {
     public static final String MESSAGES_ERROR_CLIENT_PASSWORD_INVALID = "client.password.invalid";
     public static final String MESSAGES_ERROR_CLIENT_ADDRESS = "client.address.notfound";
     public static final String MESSAGES_ERROR_CLIENT_BIRTHDATE = "client.birthdate.notfound";
-    public static final String MESSAGES_ERROR_CLIENT_INSCRIPTIONDATE = "client.inscriptiondate.notfound";
+    public static final String MESSAGES_ERROR_CLIENT_REGISTRATIONDATE = "client.registrationdate.notfound";
     public static final String MESSAGES_ERROR_CLIENT_LICENSES = "client.licenses.notfound";
 
 
