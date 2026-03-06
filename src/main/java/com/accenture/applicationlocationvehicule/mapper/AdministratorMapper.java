@@ -9,6 +9,7 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface AdministratorMapper {
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "role", constant = "ADMIN")
     Administrator toAdministrator(AdministratorRequestDto dto);
     AdministratorResponseDto toAdministratorResponseDto(Administrator administrator);
 }

@@ -137,7 +137,7 @@ public class Messages {
     public static final String MESSAGES_ERROR_CLIENT_LICENSES = "client.licenses.notfound";
 
 
-    //CLIENT MESSAGES
+    //ADMINISTRATOR MESSAGES
     public static final String MESSAGES_ERROR_ADMINISTRATOR_NOTFOUND = "administrator.id.notfound";
     public static final String MESSAGES_ERROR_ADMINISTRATOR_FIRSTNAME = "administrator.firstname.notfound";
     public static final String MESSAGES_ERROR_ADMINISTRATOR_FIRSTNAME_INVALID = "administrator.firstname.invalid";
@@ -146,5 +146,5 @@ public class Messages {
     public static final String MESSAGES_ERROR_ADMINISTRATOR_EMAIL = "administrator.email.notfound";
     public static final String MESSAGES_ERROR_ADMINISTRATOR_EMAIL_INVALID = "administrator.email.invalid";
     public static final String MESSAGES_ERROR_ADMINISTRATOR_PASSWORD = "administrator.password.notfound";
-
+    public static final String MESSAGES_ERROR_ADMINISTRATOR_FUNCTION = "administrator.function.notfound";
 }

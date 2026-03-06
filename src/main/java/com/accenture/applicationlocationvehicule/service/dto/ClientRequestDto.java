@@ -1,18 +1,16 @@
 package com.accenture.applicationlocationvehicule.service.dto;
 
 import com.accenture.applicationlocationvehicule.model.enums.*;
-import com.accenture.applicationlocationvehicule.utils.Address;
+import com.accenture.applicationlocationvehicule.model.Address;
 import com.accenture.applicationlocationvehicule.utils.Messages;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 public record ClientRequestDto(
-        @NotBlank(message = Messages.MESSAGES_ERROR_CLIENT_NOTFOUND)
-        int id,
 
         @NotBlank(message = Messages.MESSAGES_ERROR_CLIENT_FIRSTNAME)
         String firstname,
@@ -26,7 +24,8 @@ public record ClientRequestDto(
         @NotBlank(message = Messages.MESSAGES_ERROR_CLIENT_EMAIL_INVALID)
         String password,
 
-        @NotBlank(message = Messages. MESSAGES_ERROR_CLIENT_ADDRESS)
+        @Valid
+        @NotNull(message = Messages.MESSAGES_ERROR_CLIENT_ADDRESS)
         Address address,
 
         @NotNull(message = Messages.MESSAGES_ERROR_CLIENT_BIRTHDATE)
