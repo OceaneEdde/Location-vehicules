@@ -12,6 +12,7 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.context.support.MessageSourceAccessor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,11 +25,14 @@ public class AdministratorServiceImpl implements AdministratorService {
     private final AdministratorMapper administratorMapper;
     private final MessageSourceAccessor messages;
     private final Validations validations;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public AdministratorResponseDto addAdministrator(AdministratorRequestDto dto) throws AdministratorException {
         auditor(dto);
-        Administrator saved = administratorDao.save(administratorMapper.toAdministrator(dto));
+        Administrator administrator = administratorMapper.toAdministrator(dto);
+        administrator.setPassword(passwordEncoder.encode(dto.password()));
+        Administrator saved = administratorDao.save(administrator);
         return administratorMapper.toAdministratorResponseDto(saved);
     }
 
@@ -54,11 +58,11 @@ public class AdministratorServiceImpl implements AdministratorService {
     }
 
     @Override
-    public AdministratorResponseDto updateAdministratorPartially(int idAdministrator, AdministratorRequestDto requestDto) {
+    public AdministratorResponseDto updateAdministratorPartially(int id, AdministratorRequestDto requestDto) {
 
         auditor(requestDto);
 
-        Administrator administrator = administratorDao.findById(idAdministrator)
+        Administrator administrator = administratorDao.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(
                         messages.getMessage(Messages.MESSAGES_ERROR_ADMINISTRATOR_NOTFOUND)));
 

@@ -19,6 +19,6 @@ public interface AdministratorService {
 
     void deleteAdministrator(int id);
 
-    AdministratorResponseDto updateAdministratorPartially(int idAdministrator, AdministratorRequestDto requestDto);
+    AdministratorResponseDto updateAdministratorPartially(int id, AdministratorRequestDto requestDto);
 
 }

@@ -12,6 +12,7 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.context.support.MessageSourceAccessor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,11 +25,15 @@ public class ClientServiceImpl implements ClientService {
     private final ClientMapper clientMapper;
     private final MessageSourceAccessor messages;
     private final Validations validations;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public ClientResponseDto addClient(ClientRequestDto dto) throws ClientException {
         auditor(dto);
-        Client saved = clientDao.save(clientMapper.toClient(dto));
+
+        Client client = clientMapper.toClient(dto);
+        client.setPassword(passwordEncoder.encode(dto.password()));
+        Client saved = clientDao.save(client);
         return clientMapper.toClientResponseDto(saved);
     }
 
@@ -55,11 +60,11 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public ClientResponseDto updateClientPartially(int idClient, ClientRequestDto requestDto) {
+    public ClientResponseDto updateClientPartially(int id, ClientRequestDto requestDto) {
 
         auditor(requestDto);
 
-        Client client = clientDao.findById(idClient)
+        Client client = clientDao.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(
                         messages.getMessage(Messages.MESSAGES_ERROR_CLIENT_NOTFOUND)));
 

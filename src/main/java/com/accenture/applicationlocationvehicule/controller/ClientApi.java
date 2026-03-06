@@ -4,11 +4,12 @@ import com.accenture.applicationlocationvehicule.exception.ClientException;
 import com.accenture.applicationlocationvehicule.service.dto.ClientRequestDto;
 import com.accenture.applicationlocationvehicule.service.dto.ClientResponseDto;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping("/client")
+@RequestMapping("/clients")
 public interface ClientApi {
     @GetMapping
     ResponseEntity<List<ClientResponseDto>> getClients();
@@ -16,12 +17,15 @@ public interface ClientApi {
     @GetMapping("/{id}")
     ResponseEntity<ClientResponseDto> getClientById(@PathVariable int id);
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     ResponseEntity<Void> addClient(@RequestBody ClientRequestDto dto) throws ClientException;
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     ResponseEntity<Void> deleteClient(@PathVariable int id);
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PatchMapping("/{id}")
     ResponseEntity<ClientResponseDto> patchClient(@PathVariable int id, @RequestBody ClientRequestDto dto);
 }

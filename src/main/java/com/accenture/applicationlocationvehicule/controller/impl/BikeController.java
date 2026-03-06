@@ -9,6 +9,7 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -27,10 +28,11 @@ public class BikeController implements BikeApi {
     }
 
     @Override
-    public ResponseEntity<BikeResponseDto> getBikeById(int idBike) {
-        return ResponseEntity.ok(bikeService.findBikeById(idBike));
+    public ResponseEntity<BikeResponseDto> getBikeById(int id) {
+        return ResponseEntity.ok(bikeService.findBikeById(id));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @Override
     public ResponseEntity<Void> addBike(@Valid BikeRequestDto requestDto) throws BikeException {
         BikeResponseDto responseDto = bikeService.addBike(requestDto);
@@ -44,16 +46,18 @@ public class BikeController implements BikeApi {
         return ResponseEntity.created(location).build();
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @Override
-    public ResponseEntity<Void> deleteBike(int idBike) {
-        bikeService.deleteBike(idBike);
+    public ResponseEntity<Void> deleteBike(int id) {
+        bikeService.deleteBike(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
 
+    @PreAuthorize("hasRole('ADMIN')")
     @Override
-    public ResponseEntity<BikeResponseDto> patchBike(int idBike, BikeRequestDto requestDto) {
-        BikeResponseDto responseDto = bikeService.updateBikePartially(idBike, requestDto);
+    public ResponseEntity<BikeResponseDto> patchBike(int id, BikeRequestDto requestDto) {
+        BikeResponseDto responseDto = bikeService.updateBikePartially(id, requestDto);
         return ResponseEntity.ok(responseDto);
     }
 }

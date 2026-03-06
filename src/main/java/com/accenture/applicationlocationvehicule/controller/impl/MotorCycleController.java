@@ -9,6 +9,7 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -27,10 +28,11 @@ public class MotorCycleController implements MotorCycleApi {
     }
 
     @Override
-    public ResponseEntity<MotorCycleResponseDto> getMotorCycleById(int idMotorCycle) {
-        return ResponseEntity.ok(motorCycleService.findMotorCycleById(idMotorCycle));
+    public ResponseEntity<MotorCycleResponseDto> getMotorCycleById(int id) {
+        return ResponseEntity.ok(motorCycleService.findMotorCycleById(id));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @Override
     public ResponseEntity<Void> addMotorCycle(@Valid MotorCycleRequestDto requestDto) throws MotorCycleException {
         MotorCycleResponseDto responseDto = motorCycleService.addMotorCycle(requestDto);
@@ -44,15 +46,17 @@ public class MotorCycleController implements MotorCycleApi {
         return ResponseEntity.created(location).build();
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @Override
-    public ResponseEntity<Void> deleteMotorCycle(int idMotorCycle) {
-        motorCycleService.deleteMotorCycle(idMotorCycle);
+    public ResponseEntity<Void> deleteMotorCycle(int id) {
+        motorCycleService.deleteMotorCycle(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @Override
-    public ResponseEntity<MotorCycleResponseDto> patchMotorCycle(int idMotorCycle, MotorCycleRequestDto requestDto) {
-        MotorCycleResponseDto responseDto = motorCycleService.updateMotorCyclePartially(idMotorCycle, requestDto);
+    public ResponseEntity<MotorCycleResponseDto> patchMotorCycle(int id, MotorCycleRequestDto requestDto) {
+        MotorCycleResponseDto responseDto = motorCycleService.updateMotorCyclePartially(id, requestDto);
         return ResponseEntity.ok(responseDto);
     }
 

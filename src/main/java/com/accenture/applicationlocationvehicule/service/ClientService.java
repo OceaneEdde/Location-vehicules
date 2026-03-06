@@ -16,6 +16,6 @@ public interface ClientService{
 
     void deleteClient(int id);
 
-    ClientResponseDto updateClientPartially(int idClient, ClientRequestDto requestDto);
+    ClientResponseDto updateClientPartially(int id, ClientRequestDto requestDto);
 
 }

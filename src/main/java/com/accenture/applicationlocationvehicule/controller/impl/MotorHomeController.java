@@ -9,6 +9,7 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -27,10 +28,11 @@ public class MotorHomeController implements MotorHomeApi {
     }
 
     @Override
-    public ResponseEntity<MotorHomeResponseDto> getMotorHomeById(int idMotorHome) {
-        return ResponseEntity.ok(motorHomeService.findMotorHomeById(idMotorHome));
+    public ResponseEntity<MotorHomeResponseDto> getMotorHomeById(int id) {
+        return ResponseEntity.ok(motorHomeService.findMotorHomeById(id));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @Override
     public ResponseEntity<Void> addMotorHome(@Valid MotorHomeRequestDto requestDto) throws MotorHomeException {
         MotorHomeResponseDto responseDto = motorHomeService.addMotorHome(requestDto);
@@ -44,16 +46,18 @@ public class MotorHomeController implements MotorHomeApi {
         return ResponseEntity.created(location).build();
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @Override
-    public ResponseEntity<Void> deleteMotorHome(int idMotorHome) {
-        motorHomeService.deleteMotorHome(idMotorHome);
+    public ResponseEntity<Void> deleteMotorHome(int id) {
+        motorHomeService.deleteMotorHome(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
 
+    @PreAuthorize("hasRole('ADMIN')")
     @Override
-    public ResponseEntity<MotorHomeResponseDto> patchMotorHome(int idMotorHome, MotorHomeRequestDto requestDto) {
-        MotorHomeResponseDto responseDto = motorHomeService.updateMotorHomePartially(idMotorHome, requestDto);
+    public ResponseEntity<MotorHomeResponseDto> patchMotorHome(int id, MotorHomeRequestDto requestDto) {
+        MotorHomeResponseDto responseDto = motorHomeService.updateMotorHomePartially(id, requestDto);
         return ResponseEntity.ok(responseDto);
     }
 }

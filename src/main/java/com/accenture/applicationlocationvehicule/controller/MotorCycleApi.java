@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping("/motorCycle")
+@RequestMapping("/motorCycles")
 public interface MotorCycleApi {
     @GetMapping
     ResponseEntity<List<MotorCycleResponseDto>> getMotorCycles();

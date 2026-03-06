@@ -33,6 +33,26 @@ public class Client extends UserLoggin {
 
     private Boolean desactive;
 
-    @Enumerated(EnumType.STRING)
-    private Roles role;
+
+    public Client(int id, String firstname, String lastname, String email, String password, Roles roles, Address address, LocalDate birthdate, LocalDate registrationdate, List<LicensesListe> licensesListeList, Boolean desactive) {
+        super(id, firstname, lastname, email, password, roles);
+        this.address = address;
+        this.birthdate = birthdate;
+        this.registrationdate = registrationdate;
+        this.licensesListeList = licensesListeList;
+        this.desactive = desactive;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Client{");
+        sb.append("id=").append(id);
+        sb.append(", address=").append(address);
+        sb.append(", birthdate=").append(birthdate);
+        sb.append(", registrationdate=").append(registrationdate);
+        sb.append(", licensesListeList=").append(licensesListeList);
+        sb.append(", desactive=").append(desactive);
+        sb.append('}');
+        return sb.toString();
+    }
 }

@@ -1,7 +1,7 @@
 package com.accenture.applicationlocationvehicule.model;
 
 
-import com.accenture.applicationlocationvehicule.model.enums.LicensesListe;
+import com.accenture.applicationlocationvehicule.model.enums.Roles;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,4 +23,8 @@ public abstract class UserLoggin {
     private String lastname;
     private String email;
     private String password;
+
+    @Enumerated(EnumType.STRING)
+    private Roles roles;
+
 }

@@ -10,6 +10,8 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -23,16 +25,18 @@ import java.util.List;
 public class ClientController implements ClientApi {
     private final ClientService clientService;
 
-
+    @PreAuthorize("hasRole('ADMIN')")
     @Override
     public ResponseEntity<List<ClientResponseDto>> getClients() {
         return ResponseEntity.ok(clientService.findAllClients());
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @Override
-    public ResponseEntity<ClientResponseDto> getClientById(int idClient) {
-        return ResponseEntity.ok(clientService.findClientById(idClient));
+    public ResponseEntity<ClientResponseDto> getClientById(int id) {
+        return ResponseEntity.ok(clientService.findClientById(id));
     }
+
 
     @Override
     public ResponseEntity<Void> addClient(@Valid ClientRequestDto requestDto) throws ClientException {
@@ -47,15 +51,17 @@ public class ClientController implements ClientApi {
         return ResponseEntity.created(location).build();
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @Override
-    public ResponseEntity<Void> deleteClient(int idClient) {
-        clientService.deleteClient(idClient);
+    public ResponseEntity<Void> deleteClient(int id) {
+        clientService.deleteClient(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @Override
-    public ResponseEntity<ClientResponseDto> patchClient(int idClient, ClientRequestDto requestDto) {
-        ClientResponseDto responseDto = clientService.updateClientPartially(idClient, requestDto);
+    public ResponseEntity<ClientResponseDto> patchClient(int id, ClientRequestDto requestDto) {
+        ClientResponseDto responseDto = clientService.updateClientPartially(id, requestDto);
         return ResponseEntity.ok(responseDto);
     }
 

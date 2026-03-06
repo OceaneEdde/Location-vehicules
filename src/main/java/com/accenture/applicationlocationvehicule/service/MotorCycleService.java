@@ -12,10 +12,10 @@ public interface MotorCycleService {
 
     List<MotorCycleResponseDto> findAllMotorCycles();
 
-    MotorCycleResponseDto findMotorCycleById(int idMotorCycle);
+    MotorCycleResponseDto findMotorCycleById(int id);
 
-    void deleteMotorCycle(int idMotorCycle);
+    void deleteMotorCycle(int id);
 
-    MotorCycleResponseDto updateMotorCyclePartially(int idMotorCycle, MotorCycleRequestDto dto);
+    MotorCycleResponseDto updateMotorCyclePartially(int id, MotorCycleRequestDto dto);
 
 }
