@@ -24,19 +24,19 @@ import java.util.List;
 public class AdministratorController implements AdministratorApi {
     private final AdministratorService administratorService;
 
-    @PreAuthorize("hasAuthority('ADMIN')")
+
     @Override
     public ResponseEntity<List<AdministratorResponseDto>> getAdministrators() {
         return ResponseEntity.ok(administratorService.findAllAdministrators());
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
+
     @Override
     public ResponseEntity<AdministratorResponseDto> getAdministratorById(int id) {
         return ResponseEntity.ok(administratorService.findAdministratorById(id));
     }
 
-
+    @PreAuthorize("hasAuthority('ADMIN')")
     @Override
     public ResponseEntity<Void> addAdministrator(@Valid AdministratorRequestDto requestDto) throws AdministratorException {
         AdministratorResponseDto responseDto = administratorService.addAdministrator(requestDto);

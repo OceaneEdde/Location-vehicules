@@ -98,7 +98,7 @@ public class SecurityConfig {
     UserDetailsManager userDetailsManager(DataSource dataSource) {
         JdbcUserDetailsManager jdbcUserDetailsManager = new JdbcUserDetailsManager(dataSource);
         jdbcUserDetailsManager.setUsersByUsernameQuery("select email, password, 1 from user_loggin where email = ?");
-        jdbcUserDetailsManager.setAuthoritiesByUsernameQuery("select email, roles from user_loggin where email = ?");
+        jdbcUserDetailsManager.setAuthoritiesByUsernameQuery("select email, CONCAT ('ROLE_', roles) as roles from user_loggin where email = ?");
         return jdbcUserDetailsManager;
     }
 
