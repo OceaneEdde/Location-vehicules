@@ -15,15 +15,15 @@ import java.util.List;
 @RequestMapping("/administrators")
 public interface AdministratorApi {
 
-    @PreAuthorize("hasRole('ADMIN')")
+
     @GetMapping
     ResponseEntity<List<AdministratorResponseDto>> getAdministrators();
 
-    @PreAuthorize("hasRole('ADMIN')")
+
     @GetMapping("/{id}")
     ResponseEntity<AdministratorResponseDto> getAdministratorById(@PathVariable int id);
 
-    @PreAuthorize("hasRole('ADMIN')")
+
     @PostMapping
     ResponseEntity<Void> addAdministrator(@RequestBody AdministratorRequestDto dto) throws AdministratorException;
 

@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Data
 @Inheritance(strategy = InheritanceType.JOINED)
+@Table(name = "user_loggin")
 public abstract class UserLoggin {
 
     @Id

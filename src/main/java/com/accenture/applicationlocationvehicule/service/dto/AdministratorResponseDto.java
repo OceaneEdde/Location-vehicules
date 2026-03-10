@@ -9,5 +9,6 @@ public record AdministratorResponseDto(
         String firstname,
         String lastname,
         String email,
-        String function)
+        String function,
+        String password)
 { }

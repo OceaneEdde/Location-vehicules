@@ -17,7 +17,6 @@ public interface ClientApi {
     @GetMapping("/{id}")
     ResponseEntity<ClientResponseDto> getClientById(@PathVariable int id);
 
-    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     ResponseEntity<Void> addClient(@RequestBody ClientRequestDto dto) throws ClientException;
 

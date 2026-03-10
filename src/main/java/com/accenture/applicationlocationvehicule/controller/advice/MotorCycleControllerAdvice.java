@@ -74,14 +74,14 @@ public class MotorCycleControllerAdvice {
         return ResponseEntity.badRequest().body(errorsDto);
     }
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorDto> generic(Exception e) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
-                new ErrorDto(
-                        java.time.LocalDateTime.now(),
-                        HttpStatus.BAD_REQUEST.value(),
-                        e.getMessage()
-                )
-        );
-    }
+//    @ExceptionHandler(Exception.class)
+//    public ResponseEntity<ErrorDto> generic(Exception e) {
+//        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+//                new ErrorDto(
+//                        java.time.LocalDateTime.now(),
+//                        HttpStatus.BAD_REQUEST.value(),
+//                        e.getMessage()
+//                )
+//        );
+//    }
 }
